@@ -15,9 +15,6 @@ public class CarService {
     private static CarDao carDao;
 
     private static CarService carService;
-
-
-
     private CarService() {
         carDao=new CarDao();
     }
