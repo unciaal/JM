@@ -47,13 +47,13 @@ public class UserDAO {
         }
     }
 
-    public User selectUser(int id) {
+    public User selectUser(long id) {
         User user = null;
         // Step 1: Establishing a Connection
         try (Connection connection = getConnection();
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID);) {
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
@@ -96,7 +96,7 @@ public class UserDAO {
         return users;
     }
 
-    public boolean deleteUser(int id) throws SQLException {
+    public boolean deleteUser(long id) throws SQLException {
         boolean rowDeleted;
         try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL);) {
             statement.setLong(1, id);
