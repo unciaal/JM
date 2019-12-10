@@ -16,6 +16,14 @@ public class User {
         this.age = age;
     }
 
+    public User(long id, String name, String surname, String patronymic, int age) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.patronymic = patronymic;
+        this.age = age;
+    }
+
     public long getId() {
         return id;
     }
@@ -34,6 +42,14 @@ public class User {
 
     public int getAge() {
         return age;
+    }
+
+    public String getCar() {
+        return car;
+    }
+
+    public String getWork() {
+        return work;
     }
 
     public void setAge(int age) {

@@ -70,7 +70,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../web4" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RunManager">
     <configuration name="Tomcat 9.0.29" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.29" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
@@ -157,20 +157,6 @@
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="Finished" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:PredPro" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:PredPro" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@2107a1ee" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
             </expand>
             <select />
           </treeState>
@@ -189,6 +175,7 @@
       <option name="presentableId" value="Default" />
       <updated>1575923888610</updated>
       <workItem from="1575923891881" duration="7093000" />
+      <workItem from="1575988708563" duration="3649000" />
     </task>
     <servers />
   </component>
@@ -196,18 +183,18 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="275" y="26" key="#Project_Structure" timestamp="1575925276636">
+    <state x="275" y="26" key="#Project_Structure" timestamp="1575992730134">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="26" key="#Project_Structure/0.0.1366.738@0.0.1366.738" timestamp="1575925276636" />
+    <state x="275" y="26" key="#Project_Structure/0.0.1366.738@0.0.1366.738" timestamp="1575992730134" />
     <state x="137" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575933241230">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="137" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1575933241230" />
-    <state x="488" y="84" key="#com.intellij.ide.util.MemberChooser" timestamp="1575929098894">
+    <state x="488" y="84" key="#com.intellij.ide.util.MemberChooser" timestamp="1575993929484">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="488" y="84" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1575929098894" />
+    <state x="488" y="84" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1575993929484" />
     <state x="313" y="57" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1575923909009">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
