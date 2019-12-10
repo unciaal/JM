@@ -13,7 +13,7 @@ public class UserDAO {
     private static final String SELECT_ALL_USERS = "select * from users";
     private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
     private static final String UPDATE_USERS_SQL = "update users set age = ?,car = ?, work = ? where id = ?;";
-    private String jdbcURL = "jdbc:mysql://localhost:3306/PredPro?useSSL=false";
+    private String jdbcURL = "jdbc:mysql://localhost:3306/PredPro1?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "root";
 
@@ -25,9 +25,7 @@ public class UserDAO {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return connection;
@@ -116,6 +114,7 @@ public class UserDAO {
         }
         return rowUpdated;
     }
+
 
     private void printSQLException(SQLException ex) {
         for (Throwable e : ex) {

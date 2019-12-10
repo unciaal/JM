@@ -1,8 +1,7 @@
 package web;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
+import dao.UserDAO;
+import model.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,14 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import dao.UserDAO;
-import model.User;
-
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
-@WebServlet(name = "/")
+@WebServlet("/")
 public class UserServlet extends HttpServlet {
     private static final long serialVersionUID = 1;
     private UserDAO userDAO;
@@ -25,13 +21,13 @@ public class UserServlet extends HttpServlet {
     public void init() {
         userDAO = new UserDAO();
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getServletPath();
-
         try {
             switch (action) {
                 case "/new":
@@ -62,7 +58,7 @@ public class UserServlet extends HttpServlet {
             throws SQLException, IOException, ServletException {
         List <User> listUser = userDAO.selectAllUsers();
         request.setAttribute("listUser", listUser);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user-list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("list-user.jsp");
         dispatcher.forward(request, response);
     }
 
