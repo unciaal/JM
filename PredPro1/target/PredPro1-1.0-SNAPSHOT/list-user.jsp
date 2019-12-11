@@ -5,14 +5,14 @@
   Time: 0:55
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>User Management Application</title>
 </head>
 <body>
+
 <div style="text-align: center;">
     <h1>User Management</h1>
     <h2>

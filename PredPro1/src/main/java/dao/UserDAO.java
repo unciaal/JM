@@ -25,6 +25,7 @@ public class UserDAO {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -60,7 +61,7 @@ public class UserDAO {
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
                 String patronymic = rs.getString("patronymic");
-                Integer age = rs.findColumn("age");
+                int age = rs.getInt("age");
                 user = new User(id, name, surname, patronymic, age);
             }
         } catch (SQLException e) {
@@ -85,7 +86,7 @@ public class UserDAO {
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
                 String patronymic = rs.getString("patronymic");
-                Integer age = rs.findColumn("age");
+                int age = rs.getInt("age");
                 users.add(new User(id, name, surname, patronymic, age));
             }
         } catch (SQLException e) {

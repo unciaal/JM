@@ -15,18 +15,20 @@ import java.util.List;
 
 @WebServlet("/")
 public class UserServlet extends HttpServlet {
-    private static final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1L;
     private UserDAO userDAO;
 
     public void init() {
         userDAO = new UserDAO();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
         String action = request.getServletPath();
         try {
             switch (action) {
@@ -96,7 +98,11 @@ public class UserServlet extends HttpServlet {
         String surname = request.getParameter("surname");
         String patronymic = request.getParameter("patronymic");
         Integer age = Integer.parseInt(request.getParameter("age"));
+        String car = request.getParameter("car");
+        String work = request.getParameter("work");
         User book = new User(id, name, surname, patronymic, age);
+        book.setCar(car);
+        book.setWork(work);
         userDAO.updateUser(book);
         response.sendRedirect("list");
     }
