@@ -87,7 +87,12 @@ public class UserDAO {
                 String surname = rs.getString("surname");
                 String patronymic = rs.getString("patronymic");
                 int age = rs.getInt("age");
-                users.add(new User(id, name, surname, patronymic, age));
+                String car = rs.getString("car");
+                String work = rs.getString("work");
+                User user = new User(id, name, surname, patronymic, age);
+                user.setCar(car);
+                user.setWork(work);
+                users.add(user);
             }
         } catch (SQLException e) {
             printSQLException(e);

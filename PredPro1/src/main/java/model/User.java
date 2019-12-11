@@ -52,10 +52,6 @@ public class User {
         return work;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public void setCar(String car) {
         this.car = car;
     }

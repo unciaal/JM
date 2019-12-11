@@ -75,6 +75,24 @@
                         />
                     </td>
                 </tr>
+                <c:if test="${user != null}">
+                    <tr>
+                        <th>Car:</th>
+                        <td>
+                            <input type="text" name="car" size="45"
+                                   value="<c:out value='${user.car}' />"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Work:</th>
+                        <td>
+                            <input type="text" name="work" size="45"
+                                   value="<c:out value='${user.work}' />"
+                            />
+                        </td>
+                    </tr>
+                </c:if>
                 <tr>
                     <td colspan="2" align="center">
                         <input type="submit" value="Save"/>

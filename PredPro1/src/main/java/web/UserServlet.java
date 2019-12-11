@@ -103,6 +103,7 @@ public class UserServlet extends HttpServlet {
         User book = new User(id, name, surname, patronymic, age);
         book.setCar(car);
         book.setWork(work);
+        book.toString();
         userDAO.updateUser(book);
         response.sendRedirect("list");
     }
