@@ -44,7 +44,7 @@
                     <input type="hidden" name="id" value="<c:out value='${user.id}' />" />
                 </c:if>
                 <tr>
-                    <th>User Name: </th>
+                    <th>Name: </th>
                     <td>
                         <input type="text" name="name" size="45"
                                value="<c:out value='${user.name}' />"
@@ -52,18 +52,34 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>User Email: </th>
+                    <th>Surname: </th>
                     <td>
-                        <input type="text" name="email" size="45"
-                               value="<c:out value='${user.email}' />"
+                        <input type="text" name="surname" size="45"
+                               value="<c:out value='${user.surname}' />"
                         />
                     </td>
                 </tr>
                 <tr>
-                    <th>Country: </th>
+                    <th>Patronymic: </th>
                     <td>
-                        <input type="text" name="country" size="15"
-                               value="<c:out value='${user.country}' />"
+                        <input type="text" name="patronymic" size="45"
+                               value="<c:out value='${user.patronymic}' />"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Age: </th>
+                    <td>
+                        <input type="text" name="age" size="45" placeholder="enter age"
+                               value="<c:out value='${user.age}' />"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Work: </th>
+                    <td>
+                        <input type="text" name="work" size="45" placeholder="enter work"
+                               value="<c:out value='${user.work}' />"
                         />
                     </td>
                 </tr>

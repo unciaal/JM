@@ -96,7 +96,6 @@ public class UserServlet extends HttpServlet {
         String surname = request.getParameter("surname");
         String patronymic = request.getParameter("patronymic");
         Integer age = Integer.parseInt(request.getParameter("age"));
-
         User book = new User(id, name, surname, patronymic, age);
         userDAO.updateUser(book);
         response.sendRedirect("list");

@@ -1,4 +1,4 @@
-<%--
+<%@ page import="model.User" %><%--
   Created by IntelliJ IDEA.
   User: Konstantin
   Date: 11.12.2019
@@ -35,6 +35,7 @@
             <th>Work</th>
             <th>Actions</th>
         </tr>
+
         <c:forEach var="user" items="${listUser}">
             <tr>
                 <td><c:out value="${user.id}" /></td>
