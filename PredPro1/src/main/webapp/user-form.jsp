@@ -5,14 +5,14 @@
   Time: 0:58
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>User Management Application</title>
 </head>
 <body>
+
 <div style="text-align: center;">
     <h1>User Management</h1>
     <h2>
@@ -75,6 +75,24 @@
                         />
                     </td>
                 </tr>
+                <c:if test="${user != null}">
+                    <tr>
+                        <th>Car:</th>
+                        <td>
+                            <input type="text" name="car" size="45"
+                                   value="<c:out value='${user.car}' />"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Work:</th>
+                        <td>
+                            <input type="text" name="work" size="45"
+                                   value="<c:out value='${user.work}' />"
+                            />
+                        </td>
+                    </tr>
+                </c:if>
                 <tr>
                     <td colspan="2" align="center">
                         <input type="submit" value="Save"/>

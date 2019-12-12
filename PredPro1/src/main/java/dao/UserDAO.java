@@ -25,6 +25,7 @@ public class UserDAO {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -60,7 +61,7 @@ public class UserDAO {
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
                 String patronymic = rs.getString("patronymic");
-                Integer age = rs.findColumn("age");
+                int age = rs.getInt("age");
                 user = new User(id, name, surname, patronymic, age);
             }
         } catch (SQLException e) {
@@ -70,23 +71,23 @@ public class UserDAO {
     }
 
     public List<User> selectAllUsers() {
-        // using try-with-resources to avoid closing resources (boiler plate code)
         List<User> users = new ArrayList<>();
-        // Step 1: Establishing a Connection
         try (Connection connection = getConnection();
-             // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);) {
             System.out.println(preparedStatement);
-            // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
-            // Step 4: Process the ResultSet object.
             while (rs.next()) {
                 long id = rs.getLong("id");
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
                 String patronymic = rs.getString("patronymic");
-                Integer age = rs.findColumn("age");
-                users.add(new User(id, name, surname, patronymic, age));
+                int age = rs.getInt("age");
+                String car = rs.getString("car");
+                String work = rs.getString("work");
+                User user = new User(id, name, surname, patronymic, age);
+                user.setCar(car);
+                user.setWork(work);
+                users.add(user);
             }
         } catch (SQLException e) {
             printSQLException(e);
