@@ -2,39 +2,23 @@ package dao;
 
 import model.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
-    private static final String INSERT_USERS_SQL = "INSERT INTO users" + "  (name, surname, patronymic, age) VALUES " +
-            " (?, ?, ?, ?);";
-    private static final String SELECT_USER_BY_ID = "select id,name,surname,patronymic,age from users where id =?";
-    private static final String SELECT_ALL_USERS = "select * from users";
-    private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
-    private static final String UPDATE_USERS_SQL = "update users set age = ?,car = ?, work = ? where id = ?;";
-    private String jdbcURL = "jdbc:mysql://localhost:3306/PredPro1?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSL=false";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "root";
 
     public UserDAO() {
     }
 
-    protected Connection getConnection() {
-        Connection connection = null;
+    public void insertUser(User user, Connection connection) throws SQLException {
+        PreparedStatement preparedStatement = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return connection;
-    }
-
-    public void insertUser(User user) throws SQLException {
-        System.out.println(INSERT_USERS_SQL);
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
+            preparedStatement = connection.prepareStatement
+                    ("INSERT INTO users(name, surname, patronymic, age) VALUES ( ?, ?, ?, ?);");
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setString(3, user.getPatronymic());
@@ -43,20 +27,29 @@ public class UserDAO {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             printSQLException(e);
+            if (connection != null) {
+                try {
+                    System.err.print("Transaction is being rolled back");
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    printSQLException(ex);
+                }
+            }
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
         }
     }
 
-    public User selectUser(long id) {
+    public User selectUser(long id, Connection connection) throws SQLException {
         User user = null;
-        // Step 1: Establishing a Connection
-        try (Connection connection = getConnection();
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID);) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("select id,name,surname,patronymic,age from users where id =?");
             preparedStatement.setLong(1, id);
             System.out.println(preparedStatement);
-            // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
-            // Step 4: Process the ResultSet object.
             while (rs.next()) {
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
@@ -66,14 +59,27 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             printSQLException(e);
+            if (connection != null) {
+                try {
+                    System.err.print("Transaction is being rolled back");
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    printSQLException(ex);
+                }
+            }
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
         }
         return user;
     }
 
-    public List<User> selectAllUsers() {
+    public List<User> selectAllUsers(Connection connection) throws SQLException {
         List<User> users = new ArrayList<>();
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("select * from users");
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -91,29 +97,75 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             printSQLException(e);
+            if (connection != null) {
+                try {
+                    System.err.print("Transaction is being rolled back");
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    printSQLException(ex);
+                }
+            }
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
         }
         return users;
     }
 
-    public boolean deleteUser(long id) throws SQLException {
+    public boolean deleteUser(long id, Connection connection) throws SQLException {
         boolean rowDeleted;
-        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL);) {
-            statement.setLong(1, id);
-            rowDeleted = statement.executeUpdate() > 0;
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("delete from users where id = ?;");
+            preparedStatement.setLong(1, id);
+            rowDeleted = preparedStatement.executeUpdate() > 0;
+            return rowDeleted;
+        } catch (SQLException e) {
+            printSQLException(e);
+            if (connection != null) {
+                try {
+                    System.err.print("Transaction is being rolled back");
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    printSQLException(ex);
+                }
+            }
+            return false;
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
         }
-        return rowDeleted;
     }
 
-    public boolean updateUser(User user) throws SQLException {
+    public boolean updateUser(User user, Connection connection) throws SQLException {
         boolean rowUpdated;
-        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
-            statement.setInt(1, user.getAge());
-            statement.setString(2, user.getCar());
-            statement.setString(3, user.getWork());
-            statement.setLong(4, user.getId());
-            rowUpdated = statement.executeUpdate() > 0;
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("update users set age = ?,car = ?, work = ? where id = ?;");
+            preparedStatement.setInt(1, user.getAge());
+            preparedStatement.setString(2, user.getCar());
+            preparedStatement.setString(3, user.getWork());
+            preparedStatement.setLong(4, user.getId());
+            rowUpdated = preparedStatement.executeUpdate() > 0;
+            return rowUpdated;
+        } catch (SQLException e) {
+            printSQLException(e);
+            if (connection != null) {
+                try {
+                    System.err.print("Transaction is being rolled back");
+                    connection.rollback();
+                } catch (SQLException ex) {
+                    printSQLException(ex);
+                }
+            }
+            return false;
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
         }
-        return rowUpdated;
     }
 
 

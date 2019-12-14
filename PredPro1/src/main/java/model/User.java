@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class User {
     private long id;
     private String name;
@@ -71,5 +73,24 @@ public class User {
                 ", car='" + car + '\'' +
                 ", work='" + work + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return id == user.id &&
+                age == user.age &&
+                name.equals(user.name) &&
+                surname.equals(user.surname) &&
+                patronymic.equals(user.patronymic) &&
+                Objects.equals(car, user.car) &&
+                Objects.equals(work, user.work);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname, patronymic, age, car, work);
     }
 }
