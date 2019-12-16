@@ -5,28 +5,35 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class PropertyReader {
-    public static final String PATH_TO_PROPERTIES = "src/main/resources/config.properties";
+    private static PropertyReader propertyReader;
     private static String jdbcURL;
     private static String usernameJdbc;
     private static String passwordJdbc;
-    FileInputStream fileInputStream;
-    Properties prop = new
-            Properties();
+    static FileInputStream fileInputStream;
+    static Properties prop;
 
     public PropertyReader() {
+        prop = new Properties();
         try {
-            //обращаемся к файлу и получаем данные
-            fileInputStream = new FileInputStream(PATH_TO_PROPERTIES);
+            String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+            String DBPath = rootPath + "config.properties";
+
+            fileInputStream = new FileInputStream(DBPath);
             prop.load(fileInputStream);
-            jdbcURL = prop.getProperty("site");
-            usernameJdbc = prop.getProperty("login");
-            passwordJdbc = prop.getProperty("password");
+            jdbcURL = prop.getProperty("jdbcURL");
+            usernameJdbc = prop.getProperty("jdbcUsername");
+            passwordJdbc = prop.getProperty("passwordJdbc");
         } catch (IOException e) {
-            System.out.println("Ошибка в программе: файл " + PATH_TO_PROPERTIES + " не обнаружено");
+            System.out.println("Ошибка в программе: файл config.properties не обнаружен");
             e.printStackTrace();
         }
+
     }
     public static String getProperty(String property) {
+        if (propertyReader == null) {
+            propertyReader = new PropertyReader();
+        }
+
         switch (property) {
             case "jdbcURL" :
                 return jdbcURL;
