@@ -1,21 +1,18 @@
 package service;
 
-import dao.UserDAO;
-import dao.UserDaoImpl;
+import dao.UserDao;
+import dao.UserHibernateDAO;
 import model.User;
-import util.DBHelper;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 public class UserService implements UserServiceImpl {
-    private static UserDaoImpl userDAO = null;
+    private static UserDao userDAO = null;
     private static UserService userService = null;
-    private static Connection connection = null;
+
     public UserService() {
-        userDAO = new UserDAO();
-        connection = DBHelper.getDbHelperFactory();
+        userDAO = new UserHibernateDAO();
     }
 
     public static UserService getUserService() {
@@ -27,22 +24,22 @@ public class UserService implements UserServiceImpl {
     }
 
     public List<User> selectAllUsers() throws SQLException {
-        return userDAO.selectAllUsers(connection);
+        return userDAO.selectAllUsers();
     }
 
     public void insertUser(User user) throws SQLException {
-        userDAO.insertUser(user, connection);
+        userDAO.insertUser(user);
     }
 
     public User selectUser(long id) throws SQLException {
-        return userDAO.selectUser(id, connection);
+        return userDAO.selectUser(id);
     }
 
     public boolean deleteUser(long id) throws SQLException {
-        return userDAO.deleteUser(id, connection);
+        return userDAO.deleteUser(id);
     }
 
     public boolean updateUser(User user) throws SQLException {
-        return userDAO.updateUser(user, connection);
+        return userDAO.updateUser(user);
     }
 }

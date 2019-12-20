@@ -12,8 +12,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/delete")
-public class deleteServlet extends HttpServlet {
+public class DeleteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         UserServiceImpl userService = new UserService();
         long id = Long.parseLong(request.getParameter("id"));
         try {
@@ -24,6 +26,7 @@ public class deleteServlet extends HttpServlet {
         response.sendRedirect("list");
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
     }
 }

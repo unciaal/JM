@@ -14,13 +14,17 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/new")
-public class newServlet extends HttpServlet {
+public class NewServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
         dispatcher.forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         UserServiceImpl userService = new UserService();
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");

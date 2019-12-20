@@ -14,8 +14,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/edit")
-public class editServlet extends HttpServlet {
+public class EditServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         UserServiceImpl userService = new UserService();
         long id = Long.parseLong(request.getParameter("id"));
         User existingUser = null;
@@ -30,6 +32,8 @@ public class editServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         UserServiceImpl userService = new UserService();
         long id = Long.parseLong(request.getParameter("id"));
         String name = request.getParameter("name");

@@ -15,9 +15,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/")
-public class listUserServlet extends HttpServlet {
-    UserServiceImpl userService = new UserService();
+public class ListUserServlet extends HttpServlet {
+    UserServiceImpl userService = UserService.getUserService();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("main servlet");
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         List<User> listUser = null;
         try {
             listUser = userService.selectAllUsers();
@@ -25,10 +28,10 @@ public class listUserServlet extends HttpServlet {
             e.printStackTrace();
         }
         request.setAttribute("listUser", listUser);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("list-user.jsp");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("/list-user.jsp").forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
     }
 }
