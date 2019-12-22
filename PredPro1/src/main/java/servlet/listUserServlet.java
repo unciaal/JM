@@ -30,6 +30,8 @@ public class ListUserServlet extends HttpServlet {
         request.setAttribute("listUser", listUser);
         request.getRequestDispatcher("/list-user.jsp").forward(request, response);
     }
+
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");

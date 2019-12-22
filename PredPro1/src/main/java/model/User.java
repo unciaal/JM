@@ -10,19 +10,12 @@ public class User {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "name")
     private String name;
-    @Column(name = "surname")
     private String surname;
-    @Column(name = "patronymic")
     private String patronymic;
-    @Column(name = "age")
     private int age;
-    @Column(name = "car")
     private String car;
-    @Column(name = "work")
     private String work;
-
     public User() {
     }
 
@@ -34,11 +27,14 @@ public class User {
     }
 
     public User(long id, String name, String surname, String patronymic, int age) {
+        this(name, surname, patronymic, age);
         this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.patronymic = patronymic;
-        this.age = age;
+    }
+
+    public User(long id, String car, String work, String name, String surname, String patronymic, int age) {
+        this(id, name, surname, patronymic, age);
+        this.car = car;
+        this.work = work;
     }
 
     public long getId() {
@@ -65,12 +61,12 @@ public class User {
         return car;
     }
 
-    public String getWork() {
-        return work;
-    }
-
     public void setCar(String car) {
         this.car = car;
+    }
+
+    public String getWork() {
+        return work;
     }
 
     public void setWork(String work) {

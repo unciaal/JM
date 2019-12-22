@@ -44,7 +44,7 @@ public class UserHibernateDAO implements UserDao {
         User user = null;
         try {
             session = sessionFactory.openSession();
-            user = (User) session.createQuery("FROM User where id = :id").uniqueResult();
+            user = session.get(User.class,id);
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +91,8 @@ public class UserHibernateDAO implements UserDao {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            session.delete(id);
+            User user = session.load(User.class,id);
+            session.delete(user);
             transaction.commit();
             status = true;
         } catch (Exception e) {

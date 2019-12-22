@@ -20,13 +20,13 @@ public class DBHibernateHelper {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(User.class);
 
-        configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-        configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-        configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/predpro1?serverTimezone=UTC");
-        configuration.setProperty("hibernate.connection.username", "root");
-        configuration.setProperty("hibernate.connection.password", "root");
-        configuration.setProperty("hibernate.show_sql", "true");
-        configuration.setProperty("hibernate.hbm2ddl.auto", "update");
+        configuration.setProperty("hibernate.dialect", PropertyReader.getProperty("hibernate.dialect"));
+        configuration.setProperty("hibernate.connection.driver_class", PropertyReader.getProperty("hibernate.connection.driver_class"));
+        configuration.setProperty("hibernate.connection.url", PropertyReader.getProperty("hibernate.connection.url"));
+        configuration.setProperty("hibernate.connection.username", PropertyReader.getProperty("jdbcUsername"));
+        configuration.setProperty("hibernate.connection.password", PropertyReader.getProperty("passwordJdbc"));
+        configuration.setProperty("hibernate.show_sql", PropertyReader.getProperty("hibernate.show_sql"));
+        configuration.setProperty("hibernate.hbm2ddl.auto", PropertyReader.getProperty("hibernate.hbm2ddl.auto"));
         return configuration;
     }
 
