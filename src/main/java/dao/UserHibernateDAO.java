@@ -19,9 +19,7 @@ public class UserHibernateDAO implements UserDao {
     @Override
     public void insertUser(User user) throws SQLException {
         Transaction transaction = null;
-        Session session = null;
-        try {
-            session = sessionFactory.openSession();
+        try(Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();
@@ -30,20 +28,14 @@ public class UserHibernateDAO implements UserDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
     }
 
     @Override
     public User selectUser(long id) throws SQLException {
         Transaction transaction = null;
-        Session session = null;
         User user = null;
-        try {
-            session = sessionFactory.openSession();
+        try(Session session = sessionFactory.openSession()) {
             user = session.get(User.class,id);
             transaction.commit();
         } catch (Exception e) {
@@ -52,10 +44,6 @@ public class UserHibernateDAO implements UserDao {
                 transaction.rollback();
                 user = null;
             }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
         return user;
     }
@@ -63,10 +51,8 @@ public class UserHibernateDAO implements UserDao {
     @Override
     public List<User> selectAllUsers() throws SQLException {
         Transaction transaction = null;
-        Session session = null;
         List user = null;
-        try {
-            session = sessionFactory.openSession();
+        try(Session session = sessionFactory.openSession()) {
             user =  session.createQuery("FROM User").list();
             transaction.commit();
         } catch (Exception e) {
@@ -75,10 +61,6 @@ public class UserHibernateDAO implements UserDao {
                 transaction.rollback();
                 user = null;
             }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
         return user;
     }
@@ -86,10 +68,8 @@ public class UserHibernateDAO implements UserDao {
     @Override
     public boolean deleteUser(long id) throws SQLException {
         Transaction transaction = null;
-        Session session = null;
         boolean status = false;
-        try {
-            session = sessionFactory.openSession();
+        try(Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             User user = session.load(User.class,id);
             session.delete(user);
@@ -101,10 +81,6 @@ public class UserHibernateDAO implements UserDao {
                 transaction.rollback();
                 status = false;
             }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
         return status;
     }
@@ -112,10 +88,8 @@ public class UserHibernateDAO implements UserDao {
     @Override
     public boolean updateUser(User user) throws SQLException {
         Transaction transaction = null;
-        Session session = null;
         boolean status = false;
-        try {
-            session = sessionFactory.openSession();
+        try(Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             session.update(user);
             transaction.commit();
@@ -125,10 +99,6 @@ public class UserHibernateDAO implements UserDao {
             if (transaction != null) {
                 transaction.rollback();
                 status = false;
-            }
-        } finally {
-            if (session != null) {
-                session.close();
             }
         }
         return status;

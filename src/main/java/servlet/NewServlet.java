@@ -15,6 +15,7 @@ import java.sql.SQLException;
 
 @WebServlet("/new")
 public class NewServlet extends HttpServlet {
+    private UserService userService = UserServiceImpl.getUserService();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -25,7 +26,7 @@ public class NewServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
-        UserServiceImpl userService = new UserService();
+
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
         String patronymic = request.getParameter("patronymic");

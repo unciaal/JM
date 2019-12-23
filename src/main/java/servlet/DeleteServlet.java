@@ -13,10 +13,11 @@ import java.sql.SQLException;
 
 @WebServlet("/delete")
 public class DeleteServlet extends HttpServlet {
+    private UserService userService = UserServiceImpl.getUserService();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
-        UserServiceImpl userService = new UserService();
+
         long id = Long.parseLong(request.getParameter("id"));
         try {
             userService.deleteUser(id);

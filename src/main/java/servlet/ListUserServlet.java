@@ -4,7 +4,6 @@ import model.User;
 import service.UserService;
 import service.UserServiceImpl;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +15,7 @@ import java.util.List;
 
 @WebServlet("/")
 public class ListUserServlet extends HttpServlet {
-    UserServiceImpl userService = UserService.getUserService();
+    private UserService userService = UserServiceImpl.getUserService();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("main servlet");
         response.setCharacterEncoding("UTF-8");
