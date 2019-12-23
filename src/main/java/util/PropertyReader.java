@@ -1,16 +1,14 @@
 package util;
 
-import net.bytebuddy.implementation.bytecode.Throw;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class PropertyReader {
-    private static String  PropertyReader(String property) {
+    private static String PropertyReader(String property) {
         String answer = null;
         FileInputStream fileInputStream;
-        Properties prop = new Properties();;
+        Properties prop = new Properties();
 
         try {
             String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
@@ -25,7 +23,7 @@ public class PropertyReader {
         return answer;
     }
 
-    public static String getProperty(String property) throws NullPointerException  {
+    public static String getProperty(String property) throws NullPointerException {
         String answer = null;
         try {
             answer = PropertyReader(property);

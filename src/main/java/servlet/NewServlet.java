@@ -16,6 +16,10 @@ import java.sql.SQLException;
 @WebServlet("/new")
 public class NewServlet extends HttpServlet {
     private UserService userService = UserServiceImpl.getUserService();
+
+    public NewServlet() throws Exception {
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");

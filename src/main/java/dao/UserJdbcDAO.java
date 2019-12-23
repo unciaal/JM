@@ -1,6 +1,7 @@
 package dao;
 
 import model.User;
+import util.DBJDBCHelper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,10 +12,10 @@ import java.util.List;
 
 public class UserJdbcDAO implements UserDao {
 
-        Connection connection;
+        private Connection connection;
 
-        public UserJdbcDAO(Connection connection) {
-            this.connection = connection;
+        public UserJdbcDAO() {
+            this.connection = DBJDBCHelper.getDbHelperFactory();
         }
         @Override
         public void insertUser(User user) throws SQLException {
@@ -68,7 +69,7 @@ public class UserJdbcDAO implements UserDao {
         @Override
         public List<User> selectAllUsers() throws SQLException {
             List<User> users = new ArrayList<>();
-            try (PreparedStatement preparedStatement = connection.prepareStatement("select * from users")) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users")) {
                 System.out.println(preparedStatement);
                 ResultSet rs = preparedStatement.executeQuery();
                 while (rs.next()) {

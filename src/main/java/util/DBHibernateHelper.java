@@ -23,8 +23,8 @@ public class DBHibernateHelper {
         configuration.setProperty("hibernate.dialect", PropertyReader.getProperty("hibernate.dialect"));
         configuration.setProperty("hibernate.connection.driver_class", PropertyReader.getProperty("hibernate.connection.driver_class"));
         configuration.setProperty("hibernate.connection.url", PropertyReader.getProperty("hibernate.connection.url"));
-        configuration.setProperty("hibernate.connection.username", PropertyReader.getProperty("jdbcUsername"));
-        configuration.setProperty("hibernate.connection.password", PropertyReader.getProperty("passwordJdbc"));
+        configuration.setProperty("hibernate.connection.username", PropertyReader.getProperty("username"));
+        configuration.setProperty("hibernate.connection.password", PropertyReader.getProperty("password"));
         configuration.setProperty("hibernate.show_sql", PropertyReader.getProperty("hibernate.show_sql"));
         configuration.setProperty("hibernate.hbm2ddl.auto", PropertyReader.getProperty("hibernate.hbm2ddl.auto"));
         return configuration;

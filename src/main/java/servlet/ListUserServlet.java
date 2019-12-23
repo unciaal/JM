@@ -16,6 +16,10 @@ import java.util.List;
 @WebServlet("/")
 public class ListUserServlet extends HttpServlet {
     private UserService userService = UserServiceImpl.getUserService();
+
+    public ListUserServlet() throws Exception {
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("main servlet");
         response.setCharacterEncoding("UTF-8");

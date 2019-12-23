@@ -1,9 +1,8 @@
 package service;
 
 import dao.UserDao;
-import dao.UserHibernateDAO;
+import dao.UserDaoFactory;
 import model.User;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,11 +10,11 @@ public class UserServiceImpl implements UserService {
     private static UserDao userDAO = null;
     private static UserServiceImpl userService = null;
 
-    public UserServiceImpl() {
-        userDAO = new UserHibernateDAO();
+    public UserServiceImpl() throws Exception {
+        userDAO = new UserDaoFactory().getUserDao();
     }
 
-    public static UserServiceImpl getUserService() {
+    public static UserServiceImpl getUserService() throws Exception {
         if (userService == null) {
             userService = new UserServiceImpl();
 
