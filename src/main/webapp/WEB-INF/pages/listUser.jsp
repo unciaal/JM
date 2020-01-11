@@ -7,6 +7,9 @@
 <body>
 Привет мир!
 <a href="/edit">Изменить данные</a>
+<div>
+    ${user}
+</div>
 </body>
 </html>
 
