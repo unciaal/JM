@@ -39,8 +39,7 @@ public class UserDAOImpl implements UserDAO {
     @SuppressWarnings("unchecked")
     public List<User> allUsers() {
         Session session = sessionFactory.getCurrentSession();
-        session.createQuery("from User").list();
-        return null;
+        return  session.createQuery("from User ").list();
     }
 
     @Override
