@@ -1,6 +1,7 @@
 package users.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import users.dao.UserDAO;
@@ -13,7 +14,7 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
 
     @Autowired
-    public void setUserDAO(UserDAO userDAO) {
+    public void setUserDAO(@Qualifier("userEntityManagerDAO") UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
