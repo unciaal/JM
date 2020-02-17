@@ -1,4 +1,4 @@
-package users.config;
+package com.crud.spring5.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,7 +9,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
     @Configuration
     @EnableWebMvc
-    @ComponentScan(basePackages = "users")
+    @ComponentScan(basePackages = "com.crud.spring5")
     public class WebConfig {
         @Bean
         ViewResolver viewResolver() {

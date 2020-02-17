@@ -1,4 +1,4 @@
-package users.config;
+package com.crud.spring5.config;
 
 
 import org.springframework.web.filter.CharacterEncodingFilter;

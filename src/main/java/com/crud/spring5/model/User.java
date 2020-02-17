@@ -1,4 +1,4 @@
-package users.model;
+package com.crud.spring5.model;
 
 import javax.persistence.*;
 import java.util.Objects;
