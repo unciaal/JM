@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -50,5 +51,17 @@ public class UserDAOImpl implements UserDAO {
     public User getById(int id) {
         User user = entityManager.find(User.class, id);
         return user;
+    }
+
+    @Override
+    public User getByLogin(String login) {
+        try {
+            User user = entityManager.createQuery("FROM  User  WHERE login=:login", User.class)
+                    .setParameter("login", login).getSingleResult();
+            return user;
+        } catch (NoResultException e) {
+            return null;
+        }
+
     }
 }

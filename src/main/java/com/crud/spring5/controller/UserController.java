@@ -13,47 +13,9 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private UserService userService;
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    @GetMapping(value = "/")
-    public String allUser(Model model) {
-        model.addAttribute("userList", userService.allUsers());
-        return "listUser";
-    }
-
-
-    @GetMapping(value = "/edit/{id}")
-    public String  editPage(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user",userService.getById(id));
-        return "editForm";
-    }
-
-    @PostMapping(value = "/edit")
-    public String  editUser(@ModelAttribute("user") User user) {
-        userService.edit(user);
-        return "redirect:/";
-    }
-
-    @GetMapping(value = "/add")
+    @GetMapping(value = "/userHome")
     public String  addPage() {
-        return "editForm";
-    }
-
-    @PostMapping(value = "/add")
-    public String  addUser(@ModelAttribute("user") User user) {
-        userService.add(user);
-        return "redirect:/";
-    }
-
-    @GetMapping(value = "/delete/{id}")
-    public String  deleteUser(@PathVariable ("id") int id) {
-        userService.delete(id);
-        return "redirect:/";
+        return "homeUser";
     }
 
 }

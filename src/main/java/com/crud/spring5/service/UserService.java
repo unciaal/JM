@@ -10,4 +10,5 @@ public interface UserService {
     void delete (Integer id);
     void edit (User user);
     User getById (Integer id);
+    User getByLogin (String login);
 }

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>User List</title>
@@ -27,11 +28,33 @@
             <td><a href="<c:url value="/edit/${user.id}"/>">Изменить</a></td>
             <td><a href="<c:url value="/delete/${user.id}"/>">Удалить</a></td>
         </tr>
+
     </c:forEach>
 </table>
 
 <c:url value="/add" var="add"/>
 <a href="${add}">Добавить пользователя</a>
+<hr>
+<p>
+    User: <security:authentication property="principal.username"/>
+    <br><br>
+    Role(s): <security:authentication property="principal.authorities"/>
+</p>
+<hr>
+
+<!-- Add a logout button -->
+<form:form action="${pageContext.request.contextPath}/logout"
+           method="POST">
+
+    <input type="submit" value="Logout" />
+
+</form:form>
+<input type="hidden"
+       name="${_csrf.parameterName}"
+       value="${_csrf.token}" />
+<hr>
+
+
 </body>
 </html>
 

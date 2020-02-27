@@ -36,6 +36,9 @@
     <c:if test="${!empty user.login}">
         <input type="submit" value="Изменить пользователя">
     </c:if>
+    <input type="hidden"
+           name="${_csrf.parameterName}"
+           value="${_csrf.token}" />
 </form>
 </table>
 </body>
