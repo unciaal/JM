@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
@@ -7,7 +8,6 @@
 </head>
 <body>
 Привет мир!
-<a href="/edit">Изменить данные</a>
 <table>
     <caption>Users</caption>
     <tr>
@@ -25,6 +25,7 @@
             <td>${user.login}</td>
             <td>${user.password}</td>
             <td>${user.email}</td>
+            <td>${user.roles}</td>
             <td><a href="<c:url value="/edit/${user.id}"/>">Изменить</a></td>
             <td><a href="<c:url value="/delete/${user.id}"/>">Удалить</a></td>
         </tr>
@@ -34,6 +35,9 @@
 
 <c:url value="/add" var="add"/>
 <a href="${add}">Добавить пользователя</a>
+<br>
+<c:url value="/listRole" var="listRole"/>
+<a href="${listRole}">Список ролей</a>
 <hr>
 <p>
     User: <security:authentication property="principal.username"/>
@@ -47,6 +51,12 @@
            method="POST">
 
     <input type="submit" value="Logout" />
+
+</form:form>
+<form:form action="${pageContext.request.contextPath}/homeUser"
+           method="GET">
+
+    <input type="submit" value="User Home" />
 
 </form:form>
 <input type="hidden"

@@ -1,15 +1,11 @@
 package com.crud.spring5.model;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tableusers")
@@ -23,18 +19,23 @@ public class User implements UserDetails {
     private String email;
 
 
-    @ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_role"))
-    private Set<Role> roles;
+    @ManyToMany(fetch=FetchType.EAGER,mappedBy = "users")
 
-    public User() {
+
+    private Set<Role> roles = new HashSet<>();
+
+    public Set<Role> getRoles() {
+        return roles;
     }
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        if (roles == null) {
+            roles = new HashSet<>();
+        }
+        roles.add(role);
     }
 
     public Integer getId() {
@@ -49,9 +50,7 @@ public class User implements UserDetails {
         return name;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
+
 
     public void setName(String name) {
         this.name = name;

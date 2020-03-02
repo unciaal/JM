@@ -7,16 +7,16 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-    @Configuration
-    @EnableWebMvc
-    @ComponentScan(basePackages = "com.crud.spring5")
-    public class WebConfig {
-        @Bean
-        ViewResolver viewResolver() {
-            InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-            viewResolver.setPrefix("/WEB-INF/pages/");
-            viewResolver.setSuffix(".jsp");
-            return viewResolver;
-        }
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages = "com.crud.spring5")
+public class WebConfig {
+    @Bean
+    ViewResolver viewResolver() {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("/WEB-INF/pages/");
+        viewResolver.setSuffix(".jsp");
+        return viewResolver;
     }
+}
 

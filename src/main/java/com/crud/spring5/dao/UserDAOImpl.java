@@ -3,8 +3,6 @@ package com.crud.spring5.dao;
 import com.crud.spring5.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -37,7 +35,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
 
     public void delete(Integer id) {
-        entityManager.remove(entityManager.find(User.class,id));
+        entityManager.remove(entityManager.find(User.class, id));
     }
 
     @Override
