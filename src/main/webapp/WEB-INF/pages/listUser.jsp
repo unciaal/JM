@@ -53,10 +53,9 @@
     <input type="submit" value="Logout" />
 
 </form:form>
-<form:form action="${pageContext.request.contextPath}/homeUser"
-           method="GET">
+<form:form action="/userHome" method="GET">
 
-    <input type="submit" value="User Home" />
+    <input type="submit" value="Домашняя пользователя" />
 
 </form:form>
 <input type="hidden"

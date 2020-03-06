@@ -17,14 +17,11 @@ public class Role implements GrantedAuthority {
     private Integer id;
     private String role;
 
-    @ManyToMany(fetch=FetchType.LAZY,
-            cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinTable(
+    @ManyToMany(fetch=FetchType.LAZY)
+            @JoinTable(
             name="user_role",
-            joinColumns=@JoinColumn(name="id_role"),
-            inverseJoinColumns=@JoinColumn(name="id_user")
-    )
+            joinColumns=@JoinColumn(name="role_id"),
+            inverseJoinColumns=@JoinColumn(name="user_id"))
 
     private Set<User> users = new HashSet<>();
     public Set<User> getUsers() {
@@ -56,14 +53,13 @@ public class Role implements GrantedAuthority {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role1 = (Role) o;
-        return id == role1.id &&
-                role.equals(role1.role) &&
-                Objects.equals(users, role1.users);
+        return id.equals(role1.id) &&
+                role.equals(role1.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, role, users);
+        return Objects.hash(id, role);
     }
 
     public int getId() {

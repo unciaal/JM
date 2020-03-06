@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = userService.getByLogin(login);
+        User user = userService.getByLoginWihtRoles(login);
         if (user != null) {
             return user;
         } else throw new IllegalArgumentException();

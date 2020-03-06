@@ -22,21 +22,21 @@
 </c:if>
 <form action="${var}" method="POST">
     <c:if test="${!empty user.login}">
-        <input type="hidden" name="id" value="${user.id}">
+        <%--@declare id="roles"--%><input type="hidden" name="id" value="${user.id}">
     </c:if>
 
     <label for="name">Имя</label>
     <input type="text" name="name" id="name" value="${user.name}">
     <label for="login">Логин</label>
-    <input type="text" name="login" id="login"value="${user.login}">
+    <input type="text" name="login" required id="login"value="${user.login}">
     <label for="password">Пароль</label>
-    <input type="text" name="password" id="password" value="${user.password}">
+    <input type="text" name="password" id="password" value="">
     <label for="email">эл.адрес</label>
     <input type="text" name="email" id="email" value="${user.email}">
     <label for="roles">роль</label>
     <select name="role">
         <c:forEach var="item" items="${roles}">
-            <option value="${item}" >${item.role}</option>
+            <option name = "role" value="${item.id}" >${item.role}</option>
         </c:forEach>
     </select>
 

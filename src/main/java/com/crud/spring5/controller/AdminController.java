@@ -17,11 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.springframework.security.crypto.factory.PasswordEncoderFactories.createDelegatingPasswordEncoder;
+
 @Controller
 public class AdminController {
     private UserService userService;
 
     private RoleService roleService;
+
+
 
     @Autowired
     public void setRoleService(RoleService roleService) {
@@ -37,7 +41,6 @@ public class AdminController {
     @GetMapping(value = "/adminHome")
     public String allUser(Model model) {
         model.addAttribute("userList", userService.allUsers());
-
         return "listUser";
     }
 
@@ -46,27 +49,19 @@ public class AdminController {
     public String editPage(@PathVariable("id") int id, Model model) {
         User user = userService.getById(id);
         Set<Role> role = user.getRoles();
-
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         model.addAttribute("role", role);
         model.addAttribute("roles", roleService.getAll());
         return "editForm";
     }
 
     @PostMapping(value = "/edit")
-    public String editUser(@ModelAttribute("user") User user,@ModelAttribute("role") Role role) {
+    public String editUser(@ModelAttribute("user") User user, @ModelAttribute("role") Role id) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        String pas = passwordEncoder.encode(user.getPassword());
-        user.setPassword(pas);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Role role = roleService.getById(Integer.parseInt(id.getRole()));
+        user.getRoles().add(role);
         userService.edit(user);
-        role.getUsers().add(user);
-        roleService.editRole(role);
-       //user.getRoles().add(role);
-
-
-
-
-
 
         return "redirect:/adminHome";
     }
@@ -78,11 +73,13 @@ public class AdminController {
     }
 
     @PostMapping(value = "/add")
-    public String addUser(@ModelAttribute("user") User user) {
+    public String addUser(@ModelAttribute("user") User user, @ModelAttribute("role") Role id) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        String pas = passwordEncoder.encode(user.getPassword());
-        user.setPassword(pas);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Role role = roleService.getById(Integer.parseInt(id.getRole()));
         userService.add(user);
+        user.getRoles().add(role);
+        userService.edit(user);
         return "redirect:/adminHome";
     }
 

@@ -44,8 +44,7 @@ public class RoleController {
     }
 
     @PostMapping(value = "/newRole")
-    public String addPage(Model model) {
-        model.addAttribute("newRole", true);
+    public String addPage() {
         return "redirect:/listRole";
     }
 

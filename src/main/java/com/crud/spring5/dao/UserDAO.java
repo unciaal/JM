@@ -16,4 +16,7 @@ public interface UserDAO {
     User getById(int id);
 
     User getByLogin(String login);
+
+    User getByLoginWihtRoles(String login);
+
 }

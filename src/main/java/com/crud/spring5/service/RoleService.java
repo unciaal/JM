@@ -1,6 +1,7 @@
 package com.crud.spring5.service;
 
 import com.crud.spring5.model.Role;
+import com.crud.spring5.model.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,10 +14,6 @@ public interface RoleService {
     Role getById(Integer id);
 
     void editRole(Role role);
-
-    void addRoleUser(Role role);
-
-    void delRoleUser(Integer roleId, Integer userId);
 
     List<Role> getAll();
 }

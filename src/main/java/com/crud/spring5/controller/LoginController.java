@@ -21,29 +21,8 @@ public class LoginController {
     }
 
     @GetMapping(value = "/home")
-    public String home(Authentication authentication) {
-        boolean isUser = false;
-        boolean isAdmin = false;
-        Collection<? extends GrantedAuthority> authorities
-                = authentication.getAuthorities();
-        for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
-                isUser = true;
-                break;
-            } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
-                isAdmin = true;
-                break;
-            }
-        }
-
-        if (isUser) {
-            return "/homeUser";
-        } else if (isAdmin) {
-            return "redirect:/adminHome";
-        } else {
-            return "/homeUser";
-        }
-
+    public String home() {
+        return "/generalPages";
     }
 
 }

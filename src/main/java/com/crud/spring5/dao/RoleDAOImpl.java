@@ -2,6 +2,7 @@ package com.crud.spring5.dao;
 
 import com.crud.spring5.model.Role;
 
+import com.crud.spring5.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +23,8 @@ public class RoleDAOImpl implements RoleDAO {
 
     @Override
     public List<Role> allRole() {
-        return (List<Role>) entityManager.createQuery("from Role ").getResultList();
+        List<Role> roleList = (List<Role>) entityManager.createQuery("from Role").getResultList();
+        return roleList;
     }
 
     @Override
@@ -46,13 +48,5 @@ public class RoleDAOImpl implements RoleDAO {
         return role;
     }
 
-    @Override
-    public void addRoleUserDAO(Role role) {
-        entityManager.persist(role);
-    }
 
-    @Override
-    public void delRoleUserDAO(Integer roleId, Integer userId) {
-
-    }
 }

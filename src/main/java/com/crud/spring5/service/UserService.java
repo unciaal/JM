@@ -16,4 +16,6 @@ public interface UserService {
     User getById(Integer id);
 
     User getByLogin(String login);
+
+    User getByLoginWihtRoles(String login);
 }

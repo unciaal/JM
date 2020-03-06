@@ -13,6 +13,6 @@
 <body>
 <br><br>
 <h2><a href="/home">Войти</a></h2>
-<h2><a href="/adminHome">Список пользователей</a></h2>
+
 </body>
 </html>
