@@ -17,23 +17,38 @@ public class User implements UserDetails {
     private String login;
     private String password;
     private String email;
+    @Transient
+    private String[] strIdRoles;
 
 
-    @ManyToMany(fetch=FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name="user_role",
-            joinColumns=@JoinColumn(name="user_id"),
-            inverseJoinColumns=@JoinColumn(name="role_id")
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
 
     private Set<Role> roles = new HashSet<>();
 
+    public User() {
+    }
+
+    public User(String name, String login, String password, String email, String[] strIdRoles) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.strIdRoles = strIdRoles;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
+
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 
     public void addRole(Role role) {
         if (roles == null) {
@@ -53,7 +68,6 @@ public class User implements UserDetails {
     public String getName() {
         return name;
     }
-
 
 
     public void setName(String name) {
@@ -115,6 +129,14 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+    public String[] getStrIdRoles() {
+        return strIdRoles;
+    }
+
+    public void setStrIdRoles(String[] strIdRoles) {
+        this.strIdRoles = strIdRoles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -141,4 +163,6 @@ public class User implements UserDetails {
                 ", password='" + password + '\'' +
                 ", email='" + email;
     }
+
+
 }

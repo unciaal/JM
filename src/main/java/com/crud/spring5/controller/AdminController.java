@@ -9,12 +9,10 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.springframework.security.crypto.factory.PasswordEncoderFactories.createDelegatingPasswordEncoder;
@@ -24,7 +22,6 @@ public class AdminController {
     private UserService userService;
 
     private RoleService roleService;
-
 
 
     @Autowired
@@ -48,19 +45,22 @@ public class AdminController {
     @GetMapping(value = "/edit/{id}")
     public String editPage(@PathVariable("id") int id, Model model) {
         User user = userService.getById(id);
-        Set<Role> role = user.getRoles();
-        model.addAttribute("user", user);
-        model.addAttribute("role", role);
-        model.addAttribute("roles", roleService.getAll());
+        String login = user.getLogin();
+        User user1 = userService.getByLoginWihtRoles(login);
+        model.addAttribute("user", user1);
+        model.addAttribute("troles", roleService.getAll());
         return "editForm";
     }
 
     @PostMapping(value = "/edit")
-    public String editUser(@ModelAttribute("user") User user, @ModelAttribute("role") Role id) {
+    public String editUser(@ModelAttribute("user") User user) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Role role = roleService.getById(Integer.parseInt(id.getRole()));
-        user.getRoles().add(role);
+
+        for (String idRole : user.getStrIdRoles()) {
+            Role role = roleService.getById(Integer.parseInt(idRole));
+            user.getRoles().add(role);
+        }
         userService.edit(user);
 
         return "redirect:/adminHome";
@@ -68,17 +68,20 @@ public class AdminController {
 
     @GetMapping(value = "/add")
     public String addPage(Model model) {
-        model.addAttribute("roles", roleService.getAll());
+        model.addAttribute("troles", roleService.getAll());
+        model.addAttribute("user",  new User("","","","",new String[]{""}));
         return "editForm";
     }
 
     @PostMapping(value = "/add")
-    public String addUser(@ModelAttribute("user") User user, @ModelAttribute("role") Role id) {
+    public String addUser(@ModelAttribute("user") User user) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Role role = roleService.getById(Integer.parseInt(id.getRole()));
         userService.add(user);
-        user.getRoles().add(role);
+        for (String idRole : user.getStrIdRoles()) {
+            Role role = roleService.getById(Integer.parseInt(idRole));
+            user.getRoles().add(role);
+        }
         userService.edit(user);
         return "redirect:/adminHome";
     }

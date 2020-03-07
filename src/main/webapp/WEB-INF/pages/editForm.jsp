@@ -1,7 +1,9 @@
+<%@ page import="com.crud.spring5.model.Role" %>
+<%@ page import="com.crud.spring5.model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="st" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+
 <html>
 <head>
     <c:if test="${empty user.login}">
@@ -20,9 +22,9 @@
 <c:if test="${!empty user.login}">
     <c:url value="/edit" var="var"/>
 </c:if>
-<form action="${var}" method="POST">
+<%--<form action="${var}" method="POST">
     <c:if test="${!empty user.login}">
-        <%--@declare id="roles"--%><input type="hidden" name="id" value="${user.id}">
+        &lt;%&ndash;@declare id="roles"&ndash;%&gt;<input type="hidden" name="id" value="${user.id}">
     </c:if>
 
     <label for="name">Имя</label>
@@ -34,11 +36,14 @@
     <label for="email">эл.адрес</label>
     <input type="text" name="email" id="email" value="${user.email}">
     <label for="roles">роль</label>
-    <select name="role">
-        <c:forEach var="item" items="${roles}">
-            <option name = "role" value="${item.id}" >${item.role}</option>
+
+        <c:forEach var="role" items="${roles}">
+              <c:out value="${role.role}"></c:out>
+                        <input type="checkbox" name="selectRole" value="${role.id}" />
         </c:forEach>
-    </select>
+
+
+
 
     <c:if test="${empty user.login}">
         <input type="submit" value="Добавить пользователя">
@@ -51,7 +56,27 @@
            value="${_csrf.token}" />
 </form>
 
-</table>
+</table>&ndash;%&gt;--%>
+
+        <sf:form action="${var}" method="POST" modelAttribute="user">
+    <fieldset>
+        <h1>Edit user</h1>
+        <sf:input type="hidden" name="id" value="${user.id}" path="id"/>
+        <table>
+            <tr>
+                <td>Name <sf:input path="name" value="${user.name}" required="required"/></td>
+                <td>Login <sf:input path="login" value="${user.login}" required="required"/></td>
+                <td>Password <sf:password path="password" showPassword="false"/></td>
+                <td>Email <sf:input path="email" value="${user.email}" required="required"/></td>
+                <td>Role<sf:checkboxes items = "${troles}" path = "strIdRoles" itemValue="id"/></td>
+
+            </tr>
+            <tr>
+                <td><input type="submit" value="Save"></td>
+            </tr>
+        </table>
+    </fieldset>
+</sf:form>
 </body>
 </html>
 

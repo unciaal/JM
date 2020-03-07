@@ -23,7 +23,8 @@ public class UserDAOImpl implements UserDAO {
     @Override
 
     public List<User> allUsers() {
-        return (List<User>) entityManager.createQuery("from User us JOIN FETCH us.roles ro").getResultList();
+        return (List<User>) entityManager.createQuery("SELECT distinct us From  User us JOIN FETCH us.roles ro").getResultList();
+      //  return (List<User>) entityManager.createQuery("From  User us JOIN FETCH us.roles ro").getResultList();
     }
 
     @Override
@@ -41,6 +42,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
 
     public void edit(User user) {
+
         entityManager.merge(user);
     }
 
@@ -54,7 +56,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getByLogin(String login) {
         try {
-            User user = entityManager.createQuery("FROM  User  WHERE login=:login", User.class)
+            User user = entityManager.createQuery("SELECT  us FROM  User us  WHERE us.login=:login", User.class)
                     .setParameter("login", login).getSingleResult();
             return user;
         } catch (NoResultException e) {
@@ -65,7 +67,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getByLoginWihtRoles(String login) {
         try {
-            User user = entityManager.createQuery("FROM  User  WHERE login=:login JOIN FETCH us.roles ro", User.class)
+            User user = entityManager.createQuery("SELECT  us FROM  User us   JOIN FETCH us.roles ro WHERE us.login=:login", User.class)
                     .setParameter("login", login).getSingleResult();
             return user;
         } catch (NoResultException e) {
