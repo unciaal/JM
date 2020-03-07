@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
         return new MySimpleUrlAuthenticationSuccessHandler();
     }
 
@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.authorizeRequests()
-               // .antMatchers("/userHome/** ").anonymous()
+                // .antMatchers("/userHome/** ").anonymous()
                 .antMatchers("/").permitAll()
                 .antMatchers("/userHome/**").hasRole("USER")
                 .antMatchers("/adminHome/**").hasRole("ADMIN")
@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //               .loginPage("/showLoginPage")
                 .loginProcessingUrl("/")
                 .successHandler(myAuthenticationSuccessHandler())
-  //              .permitAll()
+                //              .permitAll()
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")

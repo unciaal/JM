@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -7,7 +7,13 @@
     <title>User List</title>
 </head>
 <body>
-Привет мир!
+
+<p>
+    Пользователь: <security:authentication property="principal.username"/>
+    <br><br>
+    Роль(и): <security:authentication property="principal.authorities"/>
+</p>
+<hr>
 <table>
     <caption>Users</caption>
     <tr>
@@ -26,41 +32,51 @@
             <td>${user.password}</td>
             <td>${user.email}</td>
             <td>${user.roles}</td>
-            <td><a href="<c:url value="/edit/${user.id}"/>">Изменить</a></td>
-            <td><a href="<c:url value="/delete/${user.id}"/>">Удалить</a></td>
+            <td>
+                <form:form action="/edit/${user.id}" method="GET">
+
+                    <input type="submit" value="Изменить"/>
+                </form:form>
+            </td>
+            <td>
+                <form:form action="/delete/${user.id}" method="GET">
+
+                    <input type="submit" value="Удалить"/>
+                </form:form>
+            </td>
         </tr>
 
     </c:forEach>
 </table>
-
+<hr>
 <c:url value="/add" var="add"/>
-<a href="${add}">Добавить пользователя</a>
-<br>
+<form:form action="${add}" method="GET">
+    <input type="submit" value="Добавить пользователя"/>
+</form:form>
+
+
 <c:url value="/listRole" var="listRole"/>
-<a href="${listRole}">Список ролей</a>
+<form:form action="${listRole}" method="GET">
+    <input type="submit" value="Список ролей"/>
+</form:form>
 <hr>
-<p>
-    User: <security:authentication property="principal.username"/>
-    <br><br>
-    Role(s): <security:authentication property="principal.authorities"/>
-</p>
-<hr>
+
 
 <!-- Add a logout button -->
 <form:form action="${pageContext.request.contextPath}/logout"
            method="POST">
 
-    <input type="submit" value="Logout" />
+    <input type="submit" value="Выйти"/>
 
 </form:form>
-<form:form action="/userHome" method="GET">
+<form:form action="/home" method="GET">
 
-    <input type="submit" value="Домашняя пользователя" />
+    <input type="submit" value="Публичная страница"/>
 
 </form:form>
 <input type="hidden"
        name="${_csrf.parameterName}"
-       value="${_csrf.token}" />
+       value="${_csrf.token}"/>
 <hr>
 
 

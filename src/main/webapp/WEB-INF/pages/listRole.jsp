@@ -39,17 +39,17 @@
     </c:forEach>
 </table>
 
-    <form:form action="/addRole" method="POST">
-        <input type="text" name="role" value=${role.role}>
-        <input type="submit" value="Добавить"/>
-    </form:form>
+<form:form action="/addRole" method="POST">
+    <input type="text" name="role" value=${role.role}>
+    <input type="submit" value="Добавить"/>
+</form:form>
 <hr>
 
 
 <form:form action="${pageContext.request.contextPath}/logout"
            method="POST">
 
-    <input type="submit" value="Logout"/>
+    <input type="submit" value="Выйти"/>
 
 </form:form>
 

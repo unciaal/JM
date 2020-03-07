@@ -30,6 +30,7 @@ public class RoleController {
         roleService.delete(id);
         return "redirect:/listRole";
     }
+
     @GetMapping(value = "/editRole/{id}$newRole")
     public String editPage(@PathVariable("id") int id, @PathVariable String newRole) {
         Role role = roleService.getById(id);
@@ -37,6 +38,7 @@ public class RoleController {
         roleService.editRole(role);
         return "redirect:/listRole";
     }
+
     @PostMapping(value = "/editRole")
     public String editRole(@ModelAttribute("role") Role role) {
         roleService.editRole(role);

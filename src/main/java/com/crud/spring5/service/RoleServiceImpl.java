@@ -2,7 +2,6 @@ package com.crud.spring5.service;
 
 import com.crud.spring5.dao.RoleDAO;
 import com.crud.spring5.model.Role;
-import com.crud.spring5.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +22,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void addRole(Role role) {
-       roleDAO.add(role);
+        roleDAO.add(role);
     }
 
     @Override
@@ -33,7 +32,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role getById(Integer id) {
-        Role role =roleDAO.getById(id);
+        Role role = roleDAO.getById(id);
         return role;
     }
 

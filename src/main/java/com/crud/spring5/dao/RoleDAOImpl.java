@@ -1,8 +1,6 @@
 package com.crud.spring5.dao;
 
 import com.crud.spring5.model.Role;
-
-import com.crud.spring5.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

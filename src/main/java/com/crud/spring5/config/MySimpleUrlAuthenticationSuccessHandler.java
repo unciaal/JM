@@ -2,7 +2,6 @@ package com.crud.spring5.config;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -51,8 +50,8 @@ public class MySimpleUrlAuthenticationSuccessHandler
     }
 
     protected String determineTargetUrl(Authentication authentication) {
-        boolean isUser = false;
         boolean isAdmin = false;
+        boolean isUser = false;
         Collection<? extends GrantedAuthority> authorities
                 = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
@@ -65,10 +64,10 @@ public class MySimpleUrlAuthenticationSuccessHandler
             }
         }
 
-        if (isUser) {
-            return "/userHome";
-        } else if (isAdmin) {
+        if (isAdmin) {
             return "/adminHome";
+        } else if (isUser) {
+            return "/userHome";
         } else {
             throw new IllegalStateException();
         }
@@ -85,6 +84,7 @@ public class MySimpleUrlAuthenticationSuccessHandler
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;
     }
+
     protected RedirectStrategy getRedirectStrategy() {
         return redirectStrategy;
     }

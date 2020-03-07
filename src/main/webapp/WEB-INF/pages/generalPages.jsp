@@ -16,7 +16,7 @@
 
 
 <form:form action="/userHome"
-           method = "GET">
+           method="GET">
 
     <input type="submit" value="User Home"/>
 

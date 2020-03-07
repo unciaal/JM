@@ -1,5 +1,3 @@
-<%@ page import="com.crud.spring5.model.Role" %>
-<%@ page import="com.crud.spring5.model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
@@ -15,12 +13,13 @@
 </head>
 <body>
 Изменим мир!
-<a href="/">На главную</a>
 <c:if test="${empty user.login}">
     <c:url value="/add" var="var"/>
+    <c:set value="Добавить пользователя" var="Headline"/>
 </c:if>
 <c:if test="${!empty user.login}">
     <c:url value="/edit" var="var"/>
+    <c:set value="Изменить пользователя" var="Headline"/>
 </c:if>
 <%--<form action="${var}" method="POST">
     <c:if test="${!empty user.login}">
@@ -60,7 +59,7 @@
 
         <sf:form action="${var}" method="POST" modelAttribute="user">
     <fieldset>
-        <h1>Edit user</h1>
+        <h1>${Headline}</h1>
         <sf:input type="hidden" name="id" value="${user.id}" path="id"/>
         <table>
             <tr>
@@ -72,7 +71,8 @@
 
             </tr>
             <tr>
-                <td><input type="submit" value="Save"></td>
+                <h2><td><input type="submit" value="Сохранить"></td>
+                </h2>
             </tr>
         </table>
     </fieldset>

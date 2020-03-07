@@ -2,8 +2,6 @@ package com.crud.spring5.dao;
 
 
 import com.crud.spring5.model.Role;
-import com.crud.spring5.model.User;
-
 
 import java.util.List;
 
