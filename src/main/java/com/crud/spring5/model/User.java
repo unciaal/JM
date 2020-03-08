@@ -1,7 +1,6 @@
 package com.crud.spring5.model;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,20 +20,44 @@ public class User implements UserDetails {
     private String login;
     private String password;
     private String email;
+    @Transient
+    private String[] strIdRoles;
 
 
-    @ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_role",
-            joinColumns = @JoinColumn(name = "id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_role"))
-    private Set<Role> roles;
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
+
+    public User(String name, String login, String password, String email, String[] strIdRoles) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.strIdRoles = strIdRoles;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+
+    public void addRole(Role role) {
+        if (roles == null) {
+            roles = new HashSet<>();
+        }
+        roles.add(role);
     }
 
     public Integer getId() {
@@ -49,9 +72,6 @@ public class User implements UserDetails {
         return name;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -112,6 +132,14 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+    public String[] getStrIdRoles() {
+        return strIdRoles;
+    }
+
+    public void setStrIdRoles(String[] strIdRoles) {
+        this.strIdRoles = strIdRoles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -138,4 +166,6 @@ public class User implements UserDetails {
                 ", password='" + password + '\'' +
                 ", email='" + email;
     }
+
+
 }

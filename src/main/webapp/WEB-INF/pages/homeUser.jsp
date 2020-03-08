@@ -13,25 +13,31 @@
     <title>Домашняя</title>
 </head>
 <body>
-    <hr>
-    <p>
-        Добро пожаловать домой!
-    </p>
+<hr>
+<p>
+    Добро пожаловать домой!
+</p>
 
-    <hr>
+<hr>
 
-    <p>
-        User: <security:authentication property="principal.username"/>
-        <br><br>
-        Role(s): <security:authentication property="principal.authorities"/>
-    </p>
+<p>
+    User: <security:authentication property="principal.username"/>
+    <br><br>
+    Role(s): <security:authentication property="principal.authorities"/>
+</p>
 
-    <form:form action="${pageContext.request.contextPath}/logout"
-               method="POST">
+<form:form action="${pageContext.request.contextPath}/logout"
+           method="POST">
 
-        <input type="submit" value="Logout"/>
+    <input type="submit" value="Выйти"/>
 
-    </form:form>
+</form:form>
+
+<form:form action="/home" method="GET">
+
+    <input type="submit" value="Публичная страница"/>
+
+</form:form>
 
 
 </body>

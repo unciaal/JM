@@ -1,13 +1,10 @@
 package com.crud.spring5.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import com.crud.spring5.dao.UserDAO;
 import com.crud.spring5.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -54,5 +51,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByLogin(String login) {
         return userDAO.getByLogin(login);
+    }
+
+    public User getByLoginWihtRoles(String login) {
+        return userDAO.getByLoginWihtRoles(login);
     }
 }
