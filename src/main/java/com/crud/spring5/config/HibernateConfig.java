@@ -84,4 +84,6 @@ public class HibernateConfig {
         return jpaTransactionManager;
     }
 
+
+
 }
