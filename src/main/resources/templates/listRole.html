@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect5">
+
+<head>
+    <meta charset="UTF-8">
+    <title>List role</title>
+</head>
+<body>
+<p>
+    Пользователь: <span sec:authentication="name"></span>
+    <br><br>
+    Роль(и): <span sec:authentication="principal.authorities"></span>
+<table border="0">
+    <tr>
+        <th>
+            <form th:action="@{/logout}"
+                  method="POST">
+                <input type="submit" value="Выйти"/>
+            </form>
+        </th>
+        <th>
+            <form th:action="@{/adminHome}"
+                  method="GET">
+                <input type="submit" value="Администраторская"/>
+            </form>
+        </th>
+        <th>
+            <form th:action="@{/addRole}"
+                  method="GET">
+                <input type="submit" value="Добавить роль"/>
+            </form>
+        </th>
+    </tr>
+</table>
+<hr>
+<table border="1">
+    <caption><b>Список ролей</b></caption>
+    <THEAD>
+    <tr>
+        <th>№</th>
+        <th>name</th>
+    </tr>
+    </THEAD>
+    <TBODY>
+
+    <tr th:each="ro, state : ${roleList}">
+        <td th:text="${state.count}"></td>
+        <td th:text="${ro.role}"></td>
+
+        <td>
+            <form th:action="@{/editRole/{id}(id = *{ro.id})}" th:value="*{ro.id}" method="GET">
+                <input type="submit" value="Изменить">
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/deleteRole/{id}(id = *{ro.id})}" th:value="*{ro.id}" method="GET">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
+    </tr>
+    </TBODY>
+</table>
+<hr>
+
+<form th:action="@{/editRole}" method="POST" th:object="${editRole}" th:hidden="${editRole}?false:true">
+    <input th:attrappend="id = ${editRole}?'id',name = ${editRole}?'id',value = ${editRole}?*{id}" type="hidden"/>
+    <input th:attrappend="id = ${editRole}?'role',name = ${editRole}?'role',value = ${editRole}?*{role}" type="text"/>
+    <input type="submit" value="Сохранить">
+</form>
+<form th:action="@{/addRole}" method="POST" th:object="${addRole}" th:hidden="${addRole}?false:true">
+    <input th:attrappend="id = ${addRole}?'role',name = ${addRole}?'role',value = ${addRole}?${addRole}" type="text"/>
+    <input type="submit" value="Сохранить">
+</form>
+
+</body>
+</html>

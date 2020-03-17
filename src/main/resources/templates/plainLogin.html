@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect5">
+
+<head>
+    <meta charset="UTF-8">
+    <title>List user</title>
+</head>
+<body>
+<p>
+    Пользователь: <span sec:authentication="name"></span>
+    <br><br>
+    Роль(и): <span sec:authentication="principal.authorities"></span>
+</p>
+<hr>
+<form th:action="@{/logout}"
+      method="POST">
+    <input type="submit" value="Logout" />
+</form>
+<hr>
+
+</body>
+</html>

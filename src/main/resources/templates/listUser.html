@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect5">
+
+<head>
+    <meta charset="UTF-8">
+    <title>List user</title>
+</head>
+<body>
+<p>
+    Пользователь: <span sec:authentication="name"></span>
+    <br><br>
+    Роль(и): <span sec:authentication="principal.authorities"></span>
+    <table border="0">
+    <tr>
+        <th>
+            <form th:action="@{/logout}"
+                  method="POST">
+                <input type="submit" value="Выйти" />
+            </form>
+        </th>
+        <th>
+            <form th:action="@{/home}"
+                  method="GET">
+                <input type="submit" value="Центральная" />
+            </form>
+        </th>
+    </tr>
+</table>
+</p>
+<hr>
+<table>
+    <tr>
+        <th>
+            <form th:action="@{/add}"
+                  method="GET">
+                <input type="submit" value="Добавить пользователя" />
+            </form>
+        </th>
+        <th>
+            <form th:action="@{/listRole}"
+                  method="GET">
+                <input type="submit" value="Список ролией" />
+            </form>
+        </th>
+    </tr>
+</table>
+
+<hr>
+<table border="1">
+    <caption><b>Список пользователей</b></caption>
+    <THEAD>
+    <tr>
+        <th>№</th>
+        <th>name</th>
+        <th>login</th>
+        <th>password</th>
+        <th>email</th>
+        <th colspan="2">action</th>
+    </tr>
+    </THEAD>
+    <TBODY>
+
+    <tr th:each="user, state : ${userList}">
+        <td th:text="${state.count}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.login}"></td>
+        <td th:text="${user.password}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.roles}"></td>
+        <td>
+
+            <form th:action="@{/edit/{id}(id = ${user.id})}" th:value="${user.id}" method="GET">
+                <input type="submit" value="Изменить"/>
+            </form>
+
+            <form th:action="@{/delete/{id}(id = ${user.id})}" th:value="${user.id}" method="GET">
+                <input type="submit" value="Удалить"/>
+            </form>
+        </td>
+    </tr>
+
+    </TBODY>
+</table>
+
+</body>
+
+</html>
