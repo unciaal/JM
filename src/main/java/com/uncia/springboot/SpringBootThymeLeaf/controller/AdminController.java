@@ -51,9 +51,6 @@ public class AdminController {
         model.addAttribute("userList", userService.allUsers());
         model.addAttribute("troles", roleService.getAll());
         model.addAttribute("user", new User("", "", "", "", new String[]{""}));
-        model.addAttribute("modalOpen", true);
-        model.addAttribute("data-toggle","modal");
-    model.addAttribute("data-target","#myModal");
         return "listUser";
     }
 

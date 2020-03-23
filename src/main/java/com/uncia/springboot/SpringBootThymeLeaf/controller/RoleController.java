@@ -22,8 +22,10 @@ public class RoleController {
 
     @GetMapping(value = "/listRole")
     public String allRole(Model model) {
+        Role editRole = new Role("");
         model.addAttribute("roleList", roleService.getAll());
         model.addAttribute("addRole","");
+        model.addAttribute("editRole",editRole);
         return "listRole";
     }
 
@@ -33,34 +35,15 @@ public class RoleController {
         return "redirect:/listRole";
     }
 
-    @GetMapping(value = "/editRole/{id}")
-    public String editPage(@PathVariable("id") int id, Model model) {
-        Role role = roleService.getById(id);
-        model.addAttribute("editRole",role);
-        model.addAttribute("roleList", roleService.getAll());
-        return "listRole";
-    }
-
-
 
     @PostMapping(value = "/editRole")
-    public String editRole(@ModelAttribute("role") Role role) {
+    public String editRole(@ModelAttribute("name-modal") String editRole, @ModelAttribute("id-modal")  String id) {
+        Role role = roleService.getById(Integer.parseInt(id));
+        role.setRole(editRole);
         roleService.editRole(role);
         return "redirect:/listRole";
     }
 
-    @PostMapping(value = "/newRole")
-    public String addPage() {
-        return "redirect:/listRole";
-    }
-
-    @GetMapping(value = "/addRole")
-    public String addRole(Model model) {
-        String roleName = "";
-        model.addAttribute("addRole",roleName);
-        model.addAttribute("roleList", roleService.getAll());
-        return "listRole";
-    }
 
     @PostMapping(value = "/addRole")
     public String addRole(@ModelAttribute("role") String roleName) {

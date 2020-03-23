@@ -13,6 +13,35 @@
     <title>List role</title>
 </head>
 <body>
+
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Edit </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" th:action="@{/editRole}"  method="POST">
+                    <div class="form-group id-modal">
+                        <input type="hidden" class="form-control " id="id-modal">
+                    </div>
+                    <div class="form-group name-modal">
+                        <label for="name-modal" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="name-modal">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" value="Edit" role="button" class="btn btn-success">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
     <button class="navbar-toggler" type="button" data-th-toggle="collapse"
             data-th-target="navbar" aria-controls="navbar" aria-expanded="false"
@@ -101,10 +130,10 @@
                             <td>
                                 <button type="button" class="btn-warning btn-lg btn-block" data-toggle="modal"
                                         data-target="#Modal"
-                                        data-userid="id"
-                                        data-username="name"
-                                        th:attr="data-rolename=${ro.role},
-                                        data-userid=${ro.id}">Edit
+                                        data-roleId="id"
+                                        data-roleName="name"
+                                        th:attr="data-roleName=${ro.role},
+                                        data-roleId=${ro.id}">Edit
                                 </button>
                             </td>
                             <td>
@@ -133,7 +162,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
         </div>
@@ -143,15 +172,6 @@
 
 <hr>
 
-<form th:action="@{/editRole}" method="POST" th:object="${editRole}" th:hidden="${editRole}?false:true">
-    <input th:attrappend="id = ${editRole}?'id',name = ${editRole}?'id',value = ${editRole}?*{id}" type="hidden"/>
-    <input th:attrappend="id = ${editRole}?'role',name = ${editRole}?'role',value = ${editRole}?*{role}" type="text"/>
-    <input type="submit" value="Сохранить">
-</form>
-<form th:action="@{/addRole}" method="POST" th:object="${addRole}" th:hidden="${addRole}?false:true">
-    <input th:attrappend="id = ${addRole}?'role',name = ${addRole}?'role',value = ${addRole}?${addRole}" type="text"/>
-    <input type="submit" value="Сохранить">
-</form>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -162,5 +182,19 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+<script th:inline="javascript">
+    $('#Modal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var idR = button.data('roleId')
+        var nameR = button.data('roleName')
+       // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text('Edit ' + nameR)
+        modal.find('.id-modal input').val(idR)
+        modal.find('.name-modal input').val(nameR)
+    })
+</script>
 </body>
 </html>
