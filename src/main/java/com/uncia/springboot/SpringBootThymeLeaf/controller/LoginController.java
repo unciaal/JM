@@ -9,13 +9,13 @@ public class LoginController {
 
     @GetMapping("/showLoginPage")
     public String showMyLoginPage() {
-        return "plain-login";
+        return "loginPage";
     }
 
     @GetMapping(value = "/")
     public String allUser(Model model) {
         model.addAttribute("theDate", new java.util.Date() );
-        return "index.html";
+        return "index";
     }
 
     @GetMapping(value = "/home")

@@ -3,65 +3,111 @@
       xmlns:sec="http://org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect5">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/CSS/sidebar.css} " type="text/css">
     <title>List role</title>
 </head>
 <body>
-<p>
-    Пользователь: <span sec:authentication="name"></span>
-    <br><br>
-    Роль(и): <span sec:authentication="principal.authorities"></span>
-<table border="0">
-    <tr>
-        <th>
-            <form th:action="@{/logout}"
-                  method="POST">
-                <input type="submit" value="Выйти"/>
-            </form>
-        </th>
-        <th>
-            <form th:action="@{/adminHome}"
-                  method="GET">
-                <input type="submit" value="Администраторская"/>
-            </form>
-        </th>
-        <th>
+<nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+    <button class="navbar-toggler" type="button" data-th-toggle="collapse"
+            data-th-target="navbar" aria-controls="navbar" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" ></span>
+
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-avto">
+            <li class="nav-item active">
+                <form th:action="@{/home}"
+                      method="GET">
+                    <input type="submit" value="Home" class="btn btn-dark nav-link" />
+                </form>
+            </li>
+            <li class="nav-item active">
+                <form th:action="@{/adminHome}"
+                      method="GET">
+                    <input type="submit" value="Admin page" class="btn btn-dark nav-link"/>
+                </form>
+            </li>
+            <li class="nav-item active">
+                <form th:action="@{/userHome}"
+                      method="GET">
+                    <input type="submit" value="User page" class="btn btn-dark nav-link"/>
+                </form>
+            </li>
+
+        </ul>
+    </div>
+    <span class="text text-center text-primary">
+        Registered user: <span sec:authentication="name"></span>
+    with roles: <span sec:authentication="principal.authorities"></span>
+    </span>
+    <form th:action="@{/logout}"
+          method="GET">
+        <input type="submit" value="Logout" class="btn btn-dark nav-link"/>
+    </form>
+</nav>
+
+<hr>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">User table</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">New user</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+        <table class="table table-striped" border="1">
+
+            <THEAD>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">name</th>
+            </tr>
+            </THEAD>
+            <TBODY>
+            <tr th:each="ro, state : ${roleList}">
+                <td scope="row" th:text="${state.count}"></td>
+                <td th:text="${ro.role}"></td>
+
+                <td>
+                    <form th:action="@{/editRole/{id}(id = *{ro.id})}" th:value="*{ro.id}" method="GET">
+                        <input type="submit" value="Изменить">
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/deleteRole/{id}(id = *{ro.id})}" th:value="*{ro.id}" method="GET">
+                        <input type="submit" value="Удалить">
+                    </form>
+                </td>
+            </tr>
+            </TBODY>
+        </table>
+
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+
+</div>
+
+<hr>
             <form th:action="@{/addRole}"
                   method="GET">
                 <input type="submit" value="Добавить роль"/>
             </form>
-        </th>
-    </tr>
-</table>
-<hr>
-<table border="1">
-    <caption><b>Список ролей</b></caption>
-    <THEAD>
-    <tr>
-        <th>№</th>
-        <th>name</th>
-    </tr>
-    </THEAD>
-    <TBODY>
 
-    <tr th:each="ro, state : ${roleList}">
-        <td th:text="${state.count}"></td>
-        <td th:text="${ro.role}"></td>
-
-        <td>
-            <form th:action="@{/editRole/{id}(id = *{ro.id})}" th:value="*{ro.id}" method="GET">
-                <input type="submit" value="Изменить">
-            </form>
-        </td>
-        <td>
-            <form th:action="@{/deleteRole/{id}(id = *{ro.id})}" th:value="*{ro.id}" method="GET">
-                <input type="submit" value="Удалить">
-            </form>
-        </td>
-    </tr>
-    </TBODY>
-</table>
 <hr>
+
+
 
 <form th:action="@{/editRole}" method="POST" th:object="${editRole}" th:hidden="${editRole}?false:true">
     <input th:attrappend="id = ${editRole}?'id',name = ${editRole}?'id',value = ${editRole}?*{id}" type="hidden"/>
@@ -73,5 +119,8 @@
     <input type="submit" value="Сохранить">
 </form>
 
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>

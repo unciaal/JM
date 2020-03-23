@@ -1,61 +1,84 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<!doctype html>
+
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect5">
 
 <head>
-    <meta charset="UTF-8">
-    <title>edit form</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" th:href="@{/CSS/sidebar.css} " type="text/css">
+
+    <title>Edit form</title>
 </head>
 <body>
-<p>
-    Пользователь: <span sec:authentication="name"></span>
-    <br><br>
-    Роль(и): <span sec:authentication="principal.authorities"></span>
-<table border="0">
-    <tr>
-        <th>
-            <form th:action="@{/logout}"
-                  method="POST">
-                <input type="submit" value="Выйти" />
-            </form>
-        </th>
-        <th>
-            <form th:action="@{/home}"
-                  method="GET">
-                <input type="submit" value="Центральная" />
-            </form>
-        </th>
-    </tr>
-</table>
-<hr>
-<form th:action="@{/edit}" method="POST">
-    <table border="1">
-       <caption th:text="${user.id}?'Форма редактирования':'Форма создания'">Форма</caption>
-        <THEAD>
-        <tr>
-            <th>Имя</th>
-            <th>Логин</th>
-            <th>Пароль</th>
-            <th>Электронная почта</th>
-            <th th:each="role : ${troles}">Роль</th>
-        </tr>
 
-        </THEAD>
-        <TBODY>
-        <tr>
-            <input type="hidden" th:field="*{user.id}"/>
-            <td><input type="text" th:field="*{user.name}" /></td>
-            <td><input type="text" th:field="*{user.login}" /></td>
-            <td><input type="password" th:field="*{user.password}" showPassword="false"/></td>
-            <td><input type="text" th:field="*{user.email}" /></td>
-            <td th:each="role : ${troles}"><input type="checkbox" th:field="*{user.strIdRoles}" th:value="${role.id}" />
-                             <label th:text="${role}">Role</label></td>
-            <td><input type="submit" value="Сохранить"></td>
-        </tr>
-        </TBODY>
-    </table>
-</form>
-<hr>
+                    Пользователь: <span sec:authentication="name"></span>
+                    <br><br>
+                    Роль(и): <span sec:authentication="principal.authorities"></span>
+                <table border="0">
+                    <tr>
+                        <th>
+                            <form th:action="@{/logout}"
+                                  method="POST">
+                                <input type="submit" value="Выйти"/>
+                            </form>
+                        </th>
+                        <th>
+                            <form th:action="@{/home}"
+                                  method="GET">
+                                <input type="submit" value="Центральная"/>
+                            </form>
+                        </th>
+                    </tr>
+                </table>
+                <hr>
+                <form th:action="@{/edit}" method="POST">
+                    <table border="1">
+                        <caption th:text="${user.id}?'Форма редактирования':'Форма создания'">Форма</caption>
+                        <THEAD>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Логин</th>
+                            <th>Пароль</th>
+                            <th>Электронная почта</th>
+                            <th th:each="role : ${troles}">Роль</th>
+                        </tr>
 
+                        </THEAD>
+                        <TBODY>
+                        <tr>
+                            <input type="hidden" th:field="*{user.id}"/>
+                            <td><input type="text" th:field="*{user.name}"/></td>
+                            <td><input type="text" th:field="*{user.login}"/></td>
+                            <td><input type="password" th:field="*{user.password}" showPassword="false"/></td>
+                            <td><input type="text" th:field="*{user.email}"/></td>
+                            <td th:each="role : ${troles}"><input type="checkbox" th:field="*{user.strIdRoles}"
+                                                                  th:value="${role.id}"/>
+                                <label th:text="${role}">Role</label></td>
+                            <td><input type="submit" value="Сохранить"></td>
+                        </tr>
+                        </TBODY>
+                    </table>
+                </form>
+                <hr>
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 </html>

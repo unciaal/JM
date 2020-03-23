@@ -36,6 +36,8 @@ public class AdminController {
     @GetMapping(value = "/adminHome")
     public String allUser(Model model) {
         model.addAttribute("userList", userService.allUsers());
+        model.addAttribute("troles", roleService.getAll());
+        model.addAttribute("user", new User("", "", "", "", new String[]{""}));
         return "listUser";
     }
 
@@ -44,10 +46,15 @@ public class AdminController {
     public String editPage(@PathVariable("id") int id, Model model) {
         User user = userService.getById(id);
         String login = user.getLogin();
-        User user1 = userService.getByLoginWihtRoles(login);
-        model.addAttribute("user", user1);
+        User userEdit = userService.getByLoginWihtRoles(login);
+        model.addAttribute("userEdit", userEdit);
+        model.addAttribute("userList", userService.allUsers());
         model.addAttribute("troles", roleService.getAll());
-        return "editForm";
+        model.addAttribute("user", new User("", "", "", "", new String[]{""}));
+        model.addAttribute("modalOpen", true);
+        model.addAttribute("data-toggle","modal");
+    model.addAttribute("data-target","#myModal");
+        return "listUser";
     }
 
     @PostMapping(value = "/edit")
@@ -64,12 +71,6 @@ public class AdminController {
         return "redirect:/adminHome";
     }
 
-    @GetMapping(value = "/add")
-    public String addPage(Model model) {
-        model.addAttribute("troles", roleService.getAll());
-        model.addAttribute("user", new User("", "", "", "", new String[]{""}));
-        return "editForm";
-    }
 
     @PostMapping(value = "/add")
     public String addUser(@ModelAttribute("user") User user) {
