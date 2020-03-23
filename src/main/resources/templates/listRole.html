@@ -17,7 +17,7 @@
     <button class="navbar-toggler" type="button" data-th-toggle="collapse"
             data-th-target="navbar" aria-controls="navbar" aria-expanded="false"
             aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon" ></span>
+        <span class="navbar-toggler-icon"></span>
 
     </button>
 
@@ -26,7 +26,7 @@
             <li class="nav-item active">
                 <form th:action="@{/home}"
                       method="GET">
-                    <input type="submit" value="Home" class="btn btn-dark nav-link" />
+                    <input type="submit" value="Home" class="btn btn-dark nav-link"/>
                 </form>
             </li>
             <li class="nav-item active">
@@ -54,60 +54,94 @@
     </form>
 </nav>
 
-<hr>
+<div class="container-fluid ">
+    <div class="row ">
+        <div class="sideBarLeft col-2 bg-secondary">
+            <nav class="nav flex-column  text-light ">
+                <form th:action="@{/adminHome}"
+                      method="GET">
+                    <input type="submit" value="User table" role="button" class="btn btn-dark btn-lg btn-block mt-2"/>
+                </form>
+                <form th:action="@{/listRole}"
+                      method="GET">
+                    <input type="submit" value="Role table" role="button" class="btn btn-dark btn-lg btn-block mt-2"/>
+                </form>
 
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">User table</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">New user</a>
-    </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            </nav>
+        </div>
+        <div>
 
-        <table class="table table-striped" border="1">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="table-Role-tab" data-toggle="tab" href="#table-Role" role="tab"
+                       aria-controls="table-Role" aria-selected="true">Role table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="table-new-role-tab" data-toggle="tab" href="#table-new-role" role="tab"
+                       aria-controls="table-new-role" aria-selected="false">New role</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="table-Role" role="tabpanel" aria-labelledby="table-Role-tab">
+                    <h3><span>Role table</span></h3>
+                    <hr>
+                    <table class="table table-striped text-center">
+                        <THEAD>
+                        <tr>
+                            <th scope="col">№</th>
+                            <th scope="col">name</th>
+                            <th scope="col" colspan="2">action</th>
+                        </tr>
+                        </THEAD>
+                        <TBODY>
+                        <tr th:each="ro, state : ${roleList}">
+                            <td scope="row" th:text="${state.count}"></td>
+                            <td th:text="${ro.role}"></td>
 
-            <THEAD>
-            <tr>
-                <th scope="col">№</th>
-                <th scope="col">name</th>
-            </tr>
-            </THEAD>
-            <TBODY>
-            <tr th:each="ro, state : ${roleList}">
-                <td scope="row" th:text="${state.count}"></td>
-                <td th:text="${ro.role}"></td>
+                            <td>
+                                <button type="button" class="btn-warning btn-lg btn-block" data-toggle="modal"
+                                        data-target="#Modal"
+                                        data-userid="id"
+                                        data-username="name"
+                                        th:attr="data-rolename=${ro.role},
+                                        data-userid=${ro.id}">Edit
+                                </button>
+                            </td>
+                            <td>
+                                <form th:action="@{/deleteRole/{id}(id = *{ro.id})}" th:value="*{ro.id}" method="GET">
+                                    <input type="submit" value="Delete" role="button"
+                                           class="btn btn-danger btn-lg btn-block"/>
+                                </form>
+                            </td>
+                        </tr>
+                        </TBODY>
+                    </table>
 
-                <td>
-                    <form th:action="@{/editRole/{id}(id = *{ro.id})}" th:value="*{ro.id}" method="GET">
-                        <input type="submit" value="Изменить">
-                    </form>
-                </td>
-                <td>
-                    <form th:action="@{/deleteRole/{id}(id = *{ro.id})}" th:value="*{ro.id}" method="GET">
-                        <input type="submit" value="Удалить">
-                    </form>
-                </td>
-            </tr>
-            </TBODY>
-        </table>
+                </div>
+                <div class="tab-pane fade" id="table-new-role" role="tabpanel" aria-labelledby="table-new-role-tab">
+                    <div class="container-fluid ">
+                        <div class="row">
+                            <div class="col align-self-center ">
+                                <h3><span>New role </span></h3>
+                                <form th:action="@{/addRole}" th:object="${addRole}" method="post">
+                                    <label><input id="role" type="text" class="form-control"
+                                                  th:value="${addRole}" name="role">Role</label>
+                                    <br>
+                                    <input type="submit" value="Create role" role="button" class="btn btn-success">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
 
     </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-
 </div>
 
 <hr>
-            <form th:action="@{/addRole}"
-                  method="GET">
-                <input type="submit" value="Добавить роль"/>
-            </form>
-
-<hr>
-
-
 
 <form th:action="@{/editRole}" method="POST" th:object="${editRole}" th:hidden="${editRole}?false:true">
     <input th:attrappend="id = ${editRole}?'id',name = ${editRole}?'id',value = ${editRole}?*{id}" type="hidden"/>
@@ -119,8 +153,14 @@
     <input type="submit" value="Сохранить">
 </form>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 </html>

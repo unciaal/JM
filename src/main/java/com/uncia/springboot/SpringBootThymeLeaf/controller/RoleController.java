@@ -23,7 +23,7 @@ public class RoleController {
     @GetMapping(value = "/listRole")
     public String allRole(Model model) {
         model.addAttribute("roleList", roleService.getAll());
-
+        model.addAttribute("addRole","");
         return "listRole";
     }
 
