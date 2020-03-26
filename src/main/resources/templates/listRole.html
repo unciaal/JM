@@ -24,13 +24,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editForm" th:action="@{/editRole}"  method="POST">
+                <form id="editForm" th:action="@{/editRole}"   method="POST">
                     <div class="form-group id-modal">
-                        <input type="hidden" class="form-control " id="id-modal">
+                        <input type="hidden" class="form-control " id="id-modal" th:name="id-modal"  value="id-modal">
                     </div>
                     <div class="form-group name-modal">
                         <label for="name-modal" class="col-form-label">Name:</label>
-                        <input type="text" class="form-control" id="name-modal">
+                        <input type="text" class="form-control" id="name-modal" th:name="name-modal" value="name-modal">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -123,21 +123,20 @@
                         </tr>
                         </THEAD>
                         <TBODY>
-                        <tr th:each="ro, state : ${roleList}">
-                            <td scope="row" th:text="${state.count}"></td>
-                            <td th:text="${ro.role}"></td>
-
+                        <tr th:each="rol, state : ${roleList}">
+                            <th scope="row" th:text="${state.count}"></th>
+                            <td th:text="${rol.role}"></td>
                             <td>
                                 <button type="button" class="btn-warning btn-lg btn-block" data-toggle="modal"
                                         data-target="#Modal"
-                                        data-roleId="id"
-                                        data-roleName="name"
-                                        th:attr="data-roleName=${ro.role},
-                                        data-roleId=${ro.id}">Edit
+                                        data-target1="id"
+                                        data-target2="name"th:attr="data-target2=${rol.role},
+                                        data-target1=${rol.id}">
+                                        Edit
                                 </button>
                             </td>
                             <td>
-                                <form th:action="@{/deleteRole/{id}(id = *{ro.id})}" th:value="*{ro.id}" method="GET">
+                                <form th:action="@{/deleteRole/{id}(id = *{rol.id})}" th:value="*{rol.id}" method="GET">
                                     <input type="submit" value="Delete" role="button"
                                            class="btn btn-danger btn-lg btn-block"/>
                                 </form>
@@ -184,17 +183,17 @@
         crossorigin="anonymous"></script>
 <script th:inline="javascript">
     $('#Modal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var idR = button.data('roleId')
-        var nameR = button.data('roleName')
-       // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var button = $(event.relatedTarget)
+        var idR = button.data('target1')
+        var nameR = button.data('target2')
+        var tar = button.data('target')
         var modal = $(this)
+        console.log(idR)
+        console.log(nameR)
+        console.log(tar)
         modal.find('.modal-title').text('Edit ' + nameR)
         modal.find('.id-modal input').val(idR)
-        modal.find('.name-modal input').val(nameR)
-    })
+        modal.find('.name-modal input').val(nameR)})
 </script>
 </body>
 </html>

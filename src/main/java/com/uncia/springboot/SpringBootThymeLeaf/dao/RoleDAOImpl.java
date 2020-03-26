@@ -13,12 +13,7 @@ import java.util.List;
 public class RoleDAOImpl implements RoleDAO {
 
     @PersistenceContext
-    private final EntityManager entityManager;
-
-    @Autowired
-    public RoleDAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    private EntityManager entityManager;
 
     @Override
     public List<Role> allRole() {

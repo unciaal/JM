@@ -42,18 +42,6 @@ public class AdminController {
     }
 
 
-    @GetMapping(value = "/edit/{id}")
-    public String editPage(@PathVariable("id") int id, Model model) {
-        User user = userService.getById(id);
-        String login = user.getLogin();
-        User userEdit = userService.getByLoginWihtRoles(login);
-        model.addAttribute("userEdit", userEdit);
-        model.addAttribute("userList", userService.allUsers());
-        model.addAttribute("troles", roleService.getAll());
-        model.addAttribute("user", new User("", "", "", "", new String[]{""}));
-        return "listUser";
-    }
-
     @PostMapping(value = "/edit")
     public String editUser(@ModelAttribute("user") User user) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -73,12 +61,11 @@ public class AdminController {
     public String addUser(@ModelAttribute("user") User user) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.add(user);
         for (String idRole : user.getStrIdRoles()) {
             Role role = roleService.getById(Integer.parseInt(idRole));
             user.getRoles().add(role);
         }
-        userService.edit(user);
+        userService.add(user);
         return "redirect:/adminHome";
     }
 
@@ -87,4 +74,6 @@ public class AdminController {
         userService.delete(id);
         return "redirect:/adminHome";
     }
+
+
 }

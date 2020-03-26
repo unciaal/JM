@@ -11,22 +11,24 @@ import java.util.List;
 
 
 @Service
-@Transactional
 public class RoleServiceImpl implements RoleService {
 
     private RoleDAO roleDAO;
 
     @Autowired
+    @Transactional
     public void setRoleDAO(RoleDAO roleDAO) {
         this.roleDAO = roleDAO;
     }
 
     @Override
+    @Transactional
     public void addRole(Role role) {
         roleDAO.add(role);
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) {
         roleDAO.delete(id);
     }
@@ -38,6 +40,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional
     public void editRole(Role role) {
         roleDAO.edit(role);
     }
