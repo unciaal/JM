@@ -16,7 +16,6 @@ public class RoleServiceImpl implements RoleService {
     private RoleDAO roleDAO;
 
     @Autowired
-    @Transactional
     public void setRoleDAO(RoleDAO roleDAO) {
         this.roleDAO = roleDAO;
     }

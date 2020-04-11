@@ -1,6 +1,10 @@
 package com.uncia.springboot.SpringBootThymeLeaf.model;
 
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -10,11 +14,14 @@ import java.util.Set;
 
 @Entity
 @Table(name = "roles")
-
+@JsonAutoDetect
+@JsonIgnoreProperties({"authority"})
 public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView
     private Integer id;
+    @JsonView
     private String role;
 
 
@@ -23,7 +30,7 @@ public class Role implements GrantedAuthority {
             name = "user_role",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
     public Role() {

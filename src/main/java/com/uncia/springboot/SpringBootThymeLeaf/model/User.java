@@ -1,6 +1,10 @@
 package com.uncia.springboot.SpringBootThymeLeaf.model;
 
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,15 +16,23 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tableusers")
+@JsonAutoDetect
+@JsonIgnoreProperties({"enabled", "authorities", "username", "credentialsNonExpired", "accountNonExpired", "accountNonLocked"})
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
+
     private String name;
+
     private String login;
+
     private String password;
+
     private String email;
     @Transient
+
     private String[] strIdRoles;
 
 

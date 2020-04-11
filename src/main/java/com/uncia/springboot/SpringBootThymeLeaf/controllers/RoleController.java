@@ -1,4 +1,4 @@
-package com.uncia.springboot.SpringBootThymeLeaf.controller;
+package com.uncia.springboot.SpringBootThymeLeaf.controllers;
 
 
 import com.uncia.springboot.SpringBootThymeLeaf.model.Role;
@@ -21,26 +21,19 @@ public class RoleController {
     }
 
     @GetMapping(value = "/listRole")
-    public String allRole(Model model) {
-        Role editRole = new Role("");
-        model.addAttribute("roleList", roleService.getAll());
-        model.addAttribute("addRole","");
-        model.addAttribute("editRole",editRole);
+    public String allRole() {
+
         return "listRole";
     }
 
-    @GetMapping(value = "/deleteRole/{id}")
-    public String deleteRole(@PathVariable("id") int id) {
-        roleService.delete(id);
-        return "redirect:/listRole";
-    }
+
 
 
     @PostMapping(value = "/editRole")
     public String editRole(@ModelAttribute("name-modal") String editRole, @ModelAttribute("id-modal")  String id) {
-        Role role = roleService.getById(Integer.parseInt(id));
+/*        Role role = roleService.getById(Integer.parseInt(id));
         role.setRole(editRole);
-        roleService.editRole(role);
+        roleService.editRole(role);*/
         return "redirect:/listRole";
     }
 

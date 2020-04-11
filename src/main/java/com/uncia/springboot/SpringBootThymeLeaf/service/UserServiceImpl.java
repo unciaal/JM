@@ -1,6 +1,8 @@
 package com.uncia.springboot.SpringBootThymeLeaf.service;
 
+import com.uncia.springboot.SpringBootThymeLeaf.dao.RoleDAO;
 import com.uncia.springboot.SpringBootThymeLeaf.dao.UserDAO;
+import com.uncia.springboot.SpringBootThymeLeaf.model.Role;
 import com.uncia.springboot.SpringBootThymeLeaf.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,14 +14,19 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
+    private RoleDAO roleDAO;
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
-    @Override
+    @Autowired
+    public void setRoleDAO(RoleDAO roleDAO) {
+        this.roleDAO = roleDAO;
+    }
 
+    @Override
     public List<User> allUsers() {
         return userDAO.allUsers();
     }
@@ -32,6 +39,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public void addWithRolesID(User user) {
+        String[] strId = user.getStrIdRoles();
+        for (String id : strId) {
+            Role role = roleDAO.getById(Integer.parseInt(id));
+            user.getRoles().add(role);
+        }
+        userDAO.add(user);
+    }
+
+    @Override
+    @Transactional
     public void delete(Integer id) {
         userDAO.delete(id);
     }
@@ -39,6 +57,17 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void edit(User user) {
+        userDAO.edit(user);
+    }
+
+    @Override
+    @Transactional
+    public void editWithRolesID(User user) {
+        String[] strId = user.getStrIdRoles();
+        for (String id : strId) {
+            Role role = roleDAO.getById(Integer.parseInt(id));
+            user.getRoles().add(role);
+        }
         userDAO.edit(user);
     }
 

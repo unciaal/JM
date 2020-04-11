@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect5">
+<html xmlns:th="http://www.thymeleaf.org">
+ <!--     xmlns:sec="http://org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect5"-->
 
 <head>
     <meta charset="utf-8">
@@ -24,13 +24,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editForm" th:action="@{/editRole}"   method="POST">
+                <form id="editForm">
                     <div class="form-group id-modal">
-                        <input type="hidden" class="form-control " id="id-modal" th:name="id-modal"  value="id-modal">
+                        <input name="id" type="hidden" class="form-control " id="id-modal"   value="id-modal">
                     </div>
                     <div class="form-group name-modal">
                         <label for="name-modal" class="col-form-label">Name:</label>
-                        <input type="text" class="form-control" id="name-modal" th:name="name-modal" value="name-modal">
+                        <input  name="role" type="text" class="form-control" id="name-modal"  value="name-modal">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -73,10 +73,10 @@
 
         </ul>
     </div>
-    <span class="text text-center text-primary">
+<!--    <span class="text text-center text-primary">
         Registered user: <span sec:authentication="name"></span>
     with roles: <span sec:authentication="principal.authorities"></span>
-    </span>
+    </span>-->
     <form th:action="@{/logout}"
           method="GET">
         <input type="submit" value="Logout" class="btn btn-dark nav-link"/>
@@ -114,35 +114,8 @@
                 <div class="tab-pane fade show active" id="table-Role" role="tabpanel" aria-labelledby="table-Role-tab">
                     <h3><span>Role table</span></h3>
                     <hr>
-                    <table class="table table-striped text-center">
-                        <THEAD>
-                        <tr>
-                            <th scope="col">№</th>
-                            <th scope="col">name</th>
-                            <th scope="col" colspan="2">action</th>
-                        </tr>
-                        </THEAD>
-                        <TBODY>
-                        <tr th:each="rol, state : ${roleList}">
-                            <th scope="row" th:text="${state.count}"></th>
-                            <td th:text="${rol.role}"></td>
-                            <td>
-                                <button type="button" class="btn-warning btn-lg btn-block" data-toggle="modal"
-                                        data-target="#Modal"
-                                        data-target1="id"
-                                        data-target2="name"th:attr="data-target2=${rol.role},
-                                        data-target1=${rol.id}">
-                                        Edit
-                                </button>
-                            </td>
-                            <td>
-                                <form th:action="@{/deleteRole/{id}(id = *{rol.id})}" th:value="*{rol.id}" method="GET">
-                                    <input type="submit" value="Delete" role="button"
-                                           class="btn btn-danger btn-lg btn-block"/>
-                                </form>
-                            </td>
-                        </tr>
-                        </TBODY>
+                    <table id = tableListRole class="table table-striped text-center">
+
                     </table>
 
                 </div>
@@ -151,9 +124,9 @@
                         <div class="row">
                             <div class="col align-self-center ">
                                 <h3><span>New role </span></h3>
-                                <form th:action="@{/addRole}" th:object="${addRole}" method="post">
+                                <form id="addForm">
                                     <label><input id="role" type="text" class="form-control"
-                                                  th:value="${addRole}" name="role">Role</label>
+                                                 name="role">Role</label>
                                     <br>
                                     <input type="submit" value="Create role" role="button" class="btn btn-success">
                                 </form>
@@ -181,19 +154,12 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-<script th:inline="javascript">
-    $('#Modal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget)
-        var idR = button.data('target1')
-        var nameR = button.data('target2')
-        var tar = button.data('target')
-        var modal = $(this)
-        console.log(idR)
-        console.log(nameR)
-        console.log(tar)
-        modal.find('.modal-title').text('Edit ' + nameR)
-        modal.find('.id-modal input').val(idR)
-        modal.find('.name-modal input').val(nameR)})
+<script th:src="@{/js/listRole.js}"></script>
+
+<script language="JavaScript" type="text/javascript">
+
+    roleTable()
+    moduleRoleEdit();
 </script>
 </body>
 </html>

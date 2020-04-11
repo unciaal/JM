@@ -1,8 +1,8 @@
 <!doctype html>
 
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect5">
+      xmlns:th="http://www.thymeleaf.org">
+    <!--  xmlns:sec="http://org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect5"-->
 
 <head>
     <!-- Required meta tags -->
@@ -29,35 +29,31 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editForm" th:action="@{/edit}" method="POST">
+                <form id="editForm" >
                     <div class="form-group id-modal">
-                        <input th:field="*{user.id}" type="hidden" class="form-control " id="id-modal">
+                        <input name="id" type="hidden" class="form-control " id="id-modal">
                     </div>
                     <div class="form-group name-modal">
                         <label for="name-modal" class="col-form-label">Name:</label>
-                        <input th:field="*{user.name}" type="text" class="form-control" id="name-modal">
+                        <input name="name" type="text" class="form-control" id="name-modal">
                     </div>
                     <div class="form-group login-modal">
                         <label for="login-modal" class="col-form-label">Login:</label>
-                        <input th:field="*{user.login}" type="text" class="form-control" id="login-modal">
+                        <input name="login" type="text" class="form-control" id="login-modal">
                     </div>
                     <div class="form-group password-modal">
                         <label for="password-modal" class="col-form-label">Password:</label>
-                        <input th:field="*{user.password}" type="password" class="form-control" id="password-modal">
+                        <input name="password" type="password" class="form-control" id="password-modal">
                     </div>
                     <div class="form-group email-modal">
                         <label for="email-modal" class="col-form-label">Email:</label>
-                        <input th:field="*{user.email}" type="text" class="form-control" id="email-modal">
+                        <input name="email" type="text" class="form-control" id="email-modal">
                     </div>
-                    <div th:each="role : ${troles}" class="form-check form-check-inline">
-                        <label class="form-check-label" th:text="${role}">Role</label>
-                        <input class="form-check-input" th:field="*{user.strIdRoles}"
-                               th:value="${role.id}" type="checkbox">
-                        <br>
+                    <div id="roleListEdit">
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" value="Edit" role="button" class="btn btn-success">
+                    <input id="editButton" type="submit" value="Edit" role="button" class="btn btn-success">
                     </div>
                 </form>
             </div>
@@ -96,10 +92,10 @@
 
         </ul>
     </div>
-    <span class="text text-center text-primary">
+<!--    <span class="text text-center text-primary">
         Registered user: <span sec:authentication="name"></span>
     with roles: <span sec:authentication="principal.authorities"></span>
-    </span>
+    </span>-->
     <form th:action="@{/logout}"
           method="GET">
         <input type="submit" value="Logout" class="btn btn-dark nav-link"/>
@@ -122,9 +118,7 @@
             </nav>
         </div>
         <div class="col ">
-
             <hr>
-
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="UserTable-tab" data-toggle="tab" href="#UserTable" role="tab"
@@ -139,45 +133,8 @@
                 <div class="tab-pane fade show active" id="UserTable" role="tabpanel" aria-labelledby="UserTable-tab">
                     <h3><span>User table</span></h3>
                     <hr>
-                    <table class="table table-striped text-center table-bordered">
-                        <THEAD>
-                        <tr>
-                            <th scope="col">№</th>
-                            <th scope="col">name</th>
-                            <th scope="col">login</th>
-                            <th scope="col">email</th>
-                            <th scope="col">role(s)</th>
-                            <th scope="col" colspan="2">action</th>
-                        </tr>
-                        </THEAD>
-                        <TBODY>
+                    <table id="tableListUser" class="table table-striped text-center table-bordered">
 
-                        <tr th:each="user, state : ${userList}">
-                            <th scope="row" th:text="${state.count}"></th>
-                            <td th:text="${user.name}"></td>
-                            <td th:text="${user.login}"></td>
-                            <td th:text="${user.email}"></td>
-                            <td th:text="${user.roles}"></td>
-                            <td>
-                                <button type="button" class="btn-warning btn-lg btn-block" data-toggle="modal"
-                                        data-target="#Modal"
-                                        data-userid="id"
-                                        data-username="name"
-                                        data-userlogin="login"
-                                        data-useremail="email"
-                                        data-userpassword="password" th:attr="data-userpassword=${user.password},
-                                        data-useremail=${user.email},data-userlogin=${user.login},data-username=${user.name},
-                                        data-userid=${user.id}">Edit</button>
-                            </td>
-                            <td>
-                                <form th:action="@{/delete/{id}(id = ${user.id})}" th:value="${user.id}" method="GET">
-                                    <input type="submit" value="Delete" role="button"
-                                           class="btn btn-danger btn-lg btn-block"/>
-                                </form>
-                            </td>
-                        </tr>
-
-                        </TBODY>
                     </table>
                 </div>
                 <div class="tab-pane fade" id="NewUser" role="tabpanel" aria-labelledby="NewUser-tab">
@@ -185,21 +142,17 @@
                         <div class="row justify-content-center">
                             <div class="col-3 align-self-center ">
                                 <h3><span>New user </span></h3>
-                                <form th:action="@{/add}" method="post">
-                                    <input type="hidden" th:field="*{user.id}"/>
+                                <form id="addForm">
+                                    <input type="hidden" name ="{id}"/>
                                     <label><input type="text" class="form-control"
-                                                  th:field="*{user.name}">Name</label>
+                                                  name ="name">Name</label>
                                     <label><input type="text" class="form-control"
-                                                  th:field="*{user.login}">Login</label>
+                                                  name ="login">Login</label>
                                     <label><input type="text" class="form-control"
-                                                  th:field="*{user.password}">Password</label>
+                                                  name ="password">Password</label>
                                     <label><input type="text" class="form-control"
-                                                  th:field="*{user.email}">Email</label>
-                                    <div th:each="role : ${troles}" class="form-check form-check-inline">
-                                        <label class="form-check-label" th:text="${role}">Role</label>
-                                        <input class="form-check-input" th:field="*{user.strIdRoles}"
-                                               th:value="${role.id}" type="checkbox">
-                                        <br>
+                                                  name ="email">Email</label>
+                                    <div id = "roleListAdd">
                                     </div>
                                     <br>
                                     <input type="submit" value="Create user" role="button" class="btn btn-success">
@@ -208,10 +161,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
     </div>
 
@@ -227,25 +177,14 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-<script th:inline="javascript">
-    $('#Modal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var id = button.data('userid')
-        var name = button.data('username')
-        var login = button.data('userlogin')
-        var password = button.data('userpassword')
-        var email = button.data('useremail')// Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this)
-        modal.find('.modal-title').text('Edit ' + name)
-        modal.find('.id-modal input').val(id)
-        modal.find('.name-modal input').val(name)
-        modal.find('.login-modal input').val(login)
-        modal.find('.password-modal input').val("")
-        modal.find('.email-modal input').val(email)
-    })
+<script th:src="@{/js/listUser.js}"></script>
+<script language="JavaScript" type="text/javascript">
+    roles();
+    userTable();
+    moduleUserEdit();
 </script>
+
+
 
 </body>
 

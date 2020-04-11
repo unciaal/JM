@@ -1,4 +1,4 @@
-package com.uncia.springboot.SpringBootThymeLeaf.controller;
+package com.uncia.springboot.SpringBootThymeLeaf.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

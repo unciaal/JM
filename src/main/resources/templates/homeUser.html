@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect5">
+<html xmlns:th="http://www.thymeleaf.org">
+<!--      xmlns:sec="http://org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect5"-->
 
 <head>
     <meta charset="utf-8">
@@ -44,10 +44,10 @@
 
         </ul>
     </div>
-    <span class="text text-center text-primary">
+<!--    <span class="text text-center text-primary">
         Registered user: <span sec:authentication="name"></span>
     with roles: <span sec:authentication="principal.authorities"></span>
-    </span>
+    </span>-->
     <form th:action="@{/logout}"
           method="GET">
         <input type="submit" value="Logout" class="btn btn-dark nav-link"/>
