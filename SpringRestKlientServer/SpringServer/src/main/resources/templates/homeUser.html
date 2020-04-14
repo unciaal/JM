@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--      xmlns:sec="http://org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect5"-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/CSS/sidebar.css} " type="text/css">
+    <title>Home user</title>
+</head>
+<body>
+<nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+    <button class="navbar-toggler" type="button" data-th-toggle="collapse"
+            data-th-target="navbar" aria-controls="navbar" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" ></span>
+
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-avto">
+            <li class="nav-item active">
+                <form th:action="@{/home}"
+                      method="GET">
+                    <input type="submit" value="Home" class="btn btn-dark nav-link" />
+                </form>
+            </li>
+            <li class="nav-item active">
+                <form th:action="@{/adminHome}"
+                      method="GET">
+                    <input type="submit" value="Admin page" class="btn btn-dark nav-link"/>
+                </form>
+            </li>
+            <li class="nav-item active">
+                <form th:action="@{/userHome}"
+                      method="GET">
+                    <input type="submit" value="User page" class="btn btn-dark nav-link"/>
+                </form>
+            </li>
+
+        </ul>
+    </div>
+<!--    <span class="text text-center text-primary">
+        Registered user: <span sec:authentication="name"></span>
+    with roles: <span sec:authentication="principal.authorities"></span>
+    </span>-->
+    <form th:action="@{/logout}"
+          method="GET">
+        <input type="submit" value="Logout" class="btn btn-dark nav-link"/>
+    </form>
+</nav>
+
+
+
+</body>
+</html>

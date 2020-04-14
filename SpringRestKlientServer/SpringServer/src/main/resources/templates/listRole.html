@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ <!--     xmlns:sec="http://org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect5"-->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/CSS/sidebar.css} " type="text/css">
+    <title>List role</title>
+</head>
+<body>
+
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Edit </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <div class="form-group id-modal">
+                        <input name="id" type="hidden" class="form-control " id="id-modal"   value="id-modal">
+                    </div>
+                    <div class="form-group name-modal">
+                        <label for="name-modal" class="col-form-label">Name:</label>
+                        <input  name="role" type="text" class="form-control" id="name-modal"  value="name-modal">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" value="Edit" role="button" class="btn btn-success">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+    <button class="navbar-toggler" type="button" data-th-toggle="collapse"
+            data-th-target="navbar" aria-controls="navbar" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-avto">
+            <li class="nav-item active">
+                <form th:action="@{/home}"
+                      method="GET">
+                    <input type="submit" value="Home" class="btn btn-dark nav-link"/>
+                </form>
+            </li>
+            <li class="nav-item active">
+                <form th:action="@{/adminHome}"
+                      method="GET">
+                    <input type="submit" value="Admin page" class="btn btn-dark nav-link"/>
+                </form>
+            </li>
+            <li class="nav-item active">
+                <form th:action="@{/userHome}"
+                      method="GET">
+                    <input type="submit" value="User page" class="btn btn-dark nav-link"/>
+                </form>
+            </li>
+
+        </ul>
+    </div>
+<!--    <span class="text text-center text-primary">
+        Registered user: <span sec:authentication="name"></span>
+    with roles: <span sec:authentication="principal.authorities"></span>
+    </span>-->
+    <form th:action="@{/logout}"
+          method="GET">
+        <input type="submit" value="Logout" class="btn btn-dark nav-link"/>
+    </form>
+</nav>
+
+<div class="container-fluid ">
+    <div class="row ">
+        <div class="sideBarLeft col-2 bg-secondary">
+            <nav class="nav flex-column  text-light ">
+                <form th:action="@{/adminHome}"
+                      method="GET">
+                    <input type="submit" value="User table" role="button" class="btn btn-dark btn-lg btn-block mt-2"/>
+                </form>
+                <form th:action="@{/listRole}"
+                      method="GET">
+                    <input type="submit" value="Role table" role="button" class="btn btn-dark btn-lg btn-block mt-2"/>
+                </form>
+
+            </nav>
+        </div>
+        <div>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="table-Role-tab" data-toggle="tab" href="#table-Role" role="tab"
+                       aria-controls="table-Role" aria-selected="true">Role table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="table-new-role-tab" data-toggle="tab" href="#table-new-role" role="tab"
+                       aria-controls="table-new-role" aria-selected="false">New role</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="table-Role" role="tabpanel" aria-labelledby="table-Role-tab">
+                    <h3><span>Role table</span></h3>
+                    <hr>
+                    <table id = tableListRole class="table table-striped text-center">
+
+                    </table>
+
+                </div>
+                <div class="tab-pane fade" id="table-new-role" role="tabpanel" aria-labelledby="table-new-role-tab">
+                    <div class="container-fluid ">
+                        <div class="row">
+                            <div class="col align-self-center ">
+                                <h3><span>New role </span></h3>
+                                <form id="addForm">
+                                    <label><input id="role" type="text" class="form-control"
+                                                 name="role">Role</label>
+                                    <br>
+                                    <input type="submit" value="Create role" role="button" class="btn btn-success">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<hr>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script th:src="@{/js/listRole.js}"></script>
+
+<script language="JavaScript" type="text/javascript">
+
+    roleTable()
+    moduleRoleEdit();
+</script>
+</body>
+</html>
