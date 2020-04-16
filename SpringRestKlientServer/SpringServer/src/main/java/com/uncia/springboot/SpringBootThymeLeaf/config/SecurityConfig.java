@@ -59,10 +59,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-           //     .antMatchers("/").anonymous()
-                .antMatchers("/**/*.js", "/**/*.css").permitAll()
-                .antMatchers("/**").permitAll()
+            http.csrf().disable()
+                .authorizeRequests().anyRequest().authenticated()
+                .and()
+                .httpBasic()
+                .and()
+                .formLogin().disable();
+            //     .antMatchers("/").anonymous()
+        //      .antMatchers("/**/*.js", "/**/*.css").permitAll()
+         //     .antMatchers("/**").permitAll()
 /*                .antMatchers("/showLoginPage").permitAll()
                 .antMatchers("/userHome/**").hasRole("USER")
                 .antMatchers("/adminHome/**").hasRole("ADMIN")*/
@@ -80,8 +85,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
 
  */
-                .and()
-                .csrf().disable();
+       //         .and()
+         //       .csrf().disable();
 
     }
 

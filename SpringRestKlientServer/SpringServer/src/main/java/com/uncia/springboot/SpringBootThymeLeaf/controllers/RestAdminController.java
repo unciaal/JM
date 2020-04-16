@@ -35,8 +35,7 @@ public class RestAdminController {
 
     @GetMapping("/users/{userId}")
     public User getUser(@PathVariable int userId) {
-        User user1 = userService.getById(userId);
-        return user1;
+        return userService.getById(userId);
     }
 
     @PostMapping("/user")

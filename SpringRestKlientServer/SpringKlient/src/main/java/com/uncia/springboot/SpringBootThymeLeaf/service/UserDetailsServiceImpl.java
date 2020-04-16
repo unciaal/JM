@@ -3,6 +3,8 @@ package com.uncia.springboot.SpringBootThymeLeaf.service;
 
 
 
+import com.uncia.springboot.SpringBootThymeLeaf.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,16 +12,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    @Override
+/*    @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return null;
-    }
+    }*/
 
-/*
-    private UserService userService;
+
+    private RestUserService userService;
 
     @Autowired
-    public UserDetailsServiceImpl(UserService userService) {
+    public UserDetailsServiceImpl(RestUserService userService) {
         this.userService = userService;
     }
 
@@ -29,5 +31,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user != null) {
             return user;
         } else throw new IllegalArgumentException();
-    }*/
+    }
 }

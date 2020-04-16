@@ -46,7 +46,7 @@ public class RestRoleServiceImpl implements RestRoleService {
     @Override
     public void delete(Integer id) {
         logger.info("in deleteRole(): Calling  REST API " + roleRestUrl);
-        restTemplate.delete(roleRestUrl + "//" + id);
+        restTemplate.delete(roleRestUrl + "/" + id);
         logger.info("in deleteByIdRole(): theRoleId=" + id);
 
     }

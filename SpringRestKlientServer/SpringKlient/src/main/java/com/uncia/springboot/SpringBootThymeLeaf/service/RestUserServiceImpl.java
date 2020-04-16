@@ -94,7 +94,6 @@ public class RestUserServiceImpl implements RestUserService {
 
     @Override
     public User getByLogin(String login) {
-
         return null;
     }
 
