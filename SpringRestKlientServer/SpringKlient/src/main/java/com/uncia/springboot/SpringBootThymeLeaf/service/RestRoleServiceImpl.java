@@ -40,13 +40,13 @@ public class RestRoleServiceImpl implements RestRoleService {
     @Override
     public void addRole(Role role) {
         logger.info("in addRole(): Calling REST API " + roleRestUrl);
-        restTemplate.postForEntity(roleRestUrl, role, String.class);
+        restTemplate.postForEntity(roleRestUrl, role.getRole(), String.class);
     }
 
     @Override
     public void delete(Integer id) {
         logger.info("in deleteRole(): Calling  REST API " + roleRestUrl);
-        restTemplate.delete(roleRestUrl + "/" + id);
+        restTemplate.delete(roleRestUrl + "//" + id);
         logger.info("in deleteByIdRole(): theRoleId=" + id);
 
     }

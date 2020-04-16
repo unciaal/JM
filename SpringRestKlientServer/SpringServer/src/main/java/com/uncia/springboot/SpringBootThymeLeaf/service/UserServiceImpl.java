@@ -40,10 +40,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void addWithRolesID(User user) {
-        String[] strId = user.getStrIdRoles();
-        for (String id : strId) {
-            Role role = roleDAO.getById(Integer.parseInt(id));
-            user.getRoles().add(role);
+        if(user.getStrIdRoles() != null) {
+            String[] strId = user.getStrIdRoles();
+            for (String id : strId) {
+                Role role = roleDAO.getById(Integer.parseInt(id));
+                user.getRoles().add(role);
+            }
         }
         userDAO.add(user);
     }
@@ -63,10 +65,13 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void editWithRolesID(User user) {
-        String[] strId = user.getStrIdRoles();
-        for (String id : strId) {
-            Role role = roleDAO.getById(Integer.parseInt(id));
-            user.getRoles().add(role);
+
+        if(user.getStrIdRoles() != null) {
+            String[] strId = user.getStrIdRoles();
+            for (String id : strId) {
+                Role role = roleDAO.getById(Integer.parseInt(id));
+                user.getRoles().add(role);
+            }
         }
         userDAO.edit(user);
     }

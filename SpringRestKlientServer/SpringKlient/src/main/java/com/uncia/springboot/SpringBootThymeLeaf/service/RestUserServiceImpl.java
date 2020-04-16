@@ -67,7 +67,7 @@ public class RestUserServiceImpl implements RestUserService {
     @Override
     public void delete(Integer id) {
         logger.info("in deleteUser(): Calling  REST API " + userRestUrl);
-        restTemplate.delete(userRestUrl + "/" + id);
+        restTemplate.delete(userRestUrl +"//"+id);
         logger.info("in deleteByIdUser(): theUserId=" + id);
     }
 

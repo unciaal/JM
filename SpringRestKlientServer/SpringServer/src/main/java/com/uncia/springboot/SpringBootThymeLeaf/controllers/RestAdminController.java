@@ -51,10 +51,10 @@ public class RestAdminController {
         return user;
     }
 
-    @DeleteMapping(value = "/user")
-    public String deleteUser(@RequestBody int idUser) {
-        userService.delete(idUser);
-        return "Delete " + idUser + "user";
+    @DeleteMapping("/user/{id}")
+    public String deleteUser(@PathVariable Integer id) {
+        userService.delete(id);
+        return "Delete " + id + " user";
     }
 }
 

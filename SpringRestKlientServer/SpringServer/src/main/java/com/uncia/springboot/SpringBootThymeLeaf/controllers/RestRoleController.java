@@ -28,7 +28,8 @@ public class RestRoleController {
     }
 
     @PostMapping("/role")
-    public Role addRole(@RequestBody Role role) {
+    public Role addRole(@RequestBody String roleStr) {
+        Role role = new Role(roleStr);
         roleService.addRole(role);
         return role;
     }
@@ -39,8 +40,8 @@ public class RestRoleController {
         return role;
     }
 
-    @DeleteMapping(value = "/role")
-    public String deleteRole(@RequestBody int id) {
+    @DeleteMapping(value = "/role/{id}")
+    public String deleteRole(@PathVariable Integer id) {
         roleService.delete(id);
         return "Delete " + id + "role";
     }
