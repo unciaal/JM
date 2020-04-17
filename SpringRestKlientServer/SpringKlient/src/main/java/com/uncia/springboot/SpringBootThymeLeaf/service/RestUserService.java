@@ -21,5 +21,5 @@ public interface RestUserService {
 
     User getByLogin(String login);
 
-    User getByLoginWihtRoles(String login);
+
 }
