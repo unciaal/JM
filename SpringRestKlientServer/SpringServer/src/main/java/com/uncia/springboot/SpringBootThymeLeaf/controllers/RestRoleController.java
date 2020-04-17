@@ -45,4 +45,6 @@ public class RestRoleController {
         roleService.delete(id);
         return "Delete " + id + "role";
     }
+
+
 }

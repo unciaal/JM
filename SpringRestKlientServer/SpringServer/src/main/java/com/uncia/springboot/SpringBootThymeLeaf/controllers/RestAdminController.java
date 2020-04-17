@@ -55,5 +55,11 @@ public class RestAdminController {
         userService.delete(id);
         return "Delete " + id + " user";
     }
+
+    @GetMapping("/userDetail/{login}")
+    public User deleteUser(@PathVariable String login) {
+       User user = userService.getByLoginWihtRoles(login);
+        return user;
+    }
 }
 

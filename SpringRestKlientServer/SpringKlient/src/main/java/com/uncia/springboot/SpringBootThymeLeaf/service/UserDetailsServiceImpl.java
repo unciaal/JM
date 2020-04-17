@@ -34,7 +34,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 
     public User getLoginWihtRoles(String login) {
-        User theUser = restTemplateDetail().getForObject("http://localhost:8080/" + login, User.class);
+        User theUser = restTemplateDetail().getForObject("http://localhost:8080/userDetail/" + login, User.class);
         return theUser;
     }
 
