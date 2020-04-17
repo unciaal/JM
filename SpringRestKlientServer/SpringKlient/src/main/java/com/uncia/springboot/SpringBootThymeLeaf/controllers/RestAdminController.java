@@ -4,6 +4,8 @@ import com.uncia.springboot.SpringBootThymeLeaf.model.User;
 import com.uncia.springboot.SpringBootThymeLeaf.service.RestRoleService;
 import com.uncia.springboot.SpringBootThymeLeaf.service.RestUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,12 +42,16 @@ public class RestAdminController {
 
     @PostMapping("/user")
     public User addUser(@RequestBody User user) {
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.addWithRolesID(user);
         return user;
     }
 
     @PutMapping("/user")
     public User updateUser(@RequestBody User user) {
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.editWithRolesID(user);
         return user;
     }
