@@ -65,28 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .formLogin().disable();
-            //     .antMatchers("/").anonymous()
-        //      .antMatchers("/**/*.js", "/**/*.css").permitAll()
-         //     .antMatchers("/**").permitAll()
-/*                .antMatchers("/showLoginPage").permitAll()
-                .antMatchers("/userHome/**").hasRole("USER")
-                .antMatchers("/adminHome/**").hasRole("ADMIN")*/
-/*                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/showLoginPage")
-                .loginProcessingUrl("/authenticateTheUser")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .successHandler(myAuthenticationSuccessHandler())*/
-                //              .permitAll()
-/*                .and()
-                .logout()
-                .logoutSuccessUrl("/")
 
- */
-       //         .and()
-         //       .csrf().disable();
 
     }
 

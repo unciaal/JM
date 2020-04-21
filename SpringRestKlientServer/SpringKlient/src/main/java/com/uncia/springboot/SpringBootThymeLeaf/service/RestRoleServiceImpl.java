@@ -18,24 +18,19 @@ public class RestRoleServiceImpl implements RestRoleService {
 
     private RestTemplate restTemplate;
 
-    private String RestUrl;
     private String allRolesRestUrl;
     private String roleRestUrl;
     private Logger logger = Logger.getLogger(getClass().getName());
 
     @Autowired
     public RestRoleServiceImpl(RestTemplate theRestTemplate,
-                               @Value("${crm.rest.url}") String theUrl) {
+                               @Value("${allRolesRestUrl}") String allRolesRestUrl, @Value("${roleRestUrl}") String roleRestUrl) {
         restTemplate = theRestTemplate;
-        RestUrl = theUrl;
-        allRolesRestUrl = theUrl + "/roles";
-        roleRestUrl = theUrl + "/role";
+        this.allRolesRestUrl = allRolesRestUrl;
+        this.roleRestUrl = roleRestUrl;
 
-        logger.info("Loaded property:  crm.rest.url=" + RestUrl);
+        logger.info("Loaded property:  role.rest.url=" + roleRestUrl);
     }
-
-
-
 
     @Override
     public void addRole(Role role) {

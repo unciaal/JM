@@ -18,20 +18,19 @@ public class RestUserServiceImpl implements RestUserService {
 
     private RestTemplate restTemplate;
 
-    private String RestUrl;
+
     private String allUsersRestUrl;
     private String userRestUrl;
     private Logger logger = Logger.getLogger(getClass().getName());
 
     @Autowired
     public RestUserServiceImpl(RestTemplate theRestTemplate,
-                               @Value("${crm.rest.url}") String theUrl) {
+                               @Value("${allUsersRestUrl}") String allUsersRestUrl, @Value("${userRestUrl}") String userRestUrl) {
         restTemplate = theRestTemplate;
-        RestUrl = theUrl;
-        allUsersRestUrl = theUrl + "/users";
-        userRestUrl = theUrl + "/user";
+        this.allUsersRestUrl = allUsersRestUrl;
+        this.userRestUrl = userRestUrl;
 
-        logger.info("Loaded property:  crm.rest.url=" + RestUrl);
+        logger.info("Loaded property:  user.rest.url=" + userRestUrl);
     }
 
     @Override

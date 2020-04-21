@@ -1,5 +1,6 @@
 function moduleUserEdit() {
-    $('#Modal').on('show.bs.modal', function (event) {
+
+    $('#Modal').on('show.bs.modal', async function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var id = button.data('userid')
         var name = button.data('username')
@@ -29,7 +30,7 @@ function json(response) {
     return response.json()
 }
 
-async function roles() {
+function roles() {
     fetch('http://localhost:8888/roles')
         .then(status)
         .then(json)
@@ -58,8 +59,8 @@ function userTable() {
     fetch('http://localhost:8888/users')
         .then(status)
         .then(json)
-        .then(function (users) {
-            console.log('Request succeeded with JSON users response', users);
+        .then(async function (users) {
+                console.log('Request succeeded with JSON users response', users);
             let li = '';
             li += `<THEAD>
                 <tr>
@@ -126,7 +127,7 @@ editUserForm.addEventListener('submit', function (event) {
 
 let addUserForm = document.getElementById('addForm');
 
-addUserForm.addEventListener('submit', function (event) {
+ addUserForm.addEventListener('submit', function (event) {
     let formData = new FormData(this);
     formData = Object.fromEntries(formData);
     var arr = $(':checked').map(function (i, el) {
@@ -150,7 +151,7 @@ addUserForm.addEventListener('submit', function (event) {
 });
 
 
-function deleteUser(idUser) {
+async function deleteUser(idUser) {
     fetch(url, {
         method: 'DELETE',
         headers: {
