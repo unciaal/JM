@@ -64,12 +64,14 @@ function roleTable() {
 }
 
 let editRoleForm = document.getElementById('editForm');
+let editRoleButton = document.getElementById('editRoleButton')
 let url = 'http://localhost:8888/role'
 
-editRoleForm.addEventListener('submit', function (event) {
-    let formData = new FormData(this);
+editRoleButton.onclick = function (event) {
+    let formData = new FormData(editRoleForm);
     formData = Object.fromEntries(formData);
     console.log(formData);
+    editRoleForm.reset();
     fetch(url, {
         method: 'PUT',
         headers: {
@@ -81,15 +83,15 @@ editRoleForm.addEventListener('submit', function (event) {
         .catch(function (error) {
             console.log('Request failed', error);
         });
+};
 
-});
-
-let addUserForm = document.getElementById('addForm');
-
-addUserForm.addEventListener('submit', function (event) {
-    let formData = new FormData(this);
+let addRoleForm = document.getElementById('addForm');
+let addRoleButton = document.getElementById('addFormButton');
+addRoleButton.onclick = function (event) {
+    let formData = new FormData(addRoleForm);
     formData = Object.fromEntries(formData);
     console.log(formData);
+    addRoleForm.reset();
     fetch(url, {
         method: 'POST',
         headers: {
@@ -101,8 +103,7 @@ addUserForm.addEventListener('submit', function (event) {
         .catch(function (error) {
             console.log('Request failed', error);
         });
-
-});
+};
 
 
 

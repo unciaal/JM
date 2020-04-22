@@ -83,7 +83,7 @@ function userTable() {
                        <td text=${user.roles}>${user.roles.map(role => role.role)}</td>
                     
                        <td>
- <button  type = "button" class = "btn-warning btn-lg btn-block" data-toggle = "modal" data-target = "#Modal" data-userid = "${user.id}" data-username = "${user.name}" data-userlogin = "${user.login}" data-useremail = "${user.email}" data-userpassword = "${user.password}" data-userroles = "${user.roles}">Edit</button>
+ <button   type = "button" class = "btn-warning btn-lg btn-block" data-toggle = "modal" data-target = "#Modal" data-userid = "${user.id}" data-username = "${user.name}" data-userlogin = "${user.login}" data-useremail = "${user.email}" data-userpassword = "${user.password}" data-userroles = "${user.roles}">Edit</button>
                        </td>
                        <td>
                        
@@ -101,16 +101,17 @@ function userTable() {
 
 
 let editUserForm = document.getElementById('editForm');
+let editUserButton = document.getElementById('editButton');
 let url = 'http://localhost:8888/user'
-
-editUserForm.addEventListener('submit', function (event) {
-    let formData = new FormData(this);
+editUserButton.onclick = function (event) {
+    let formData = new FormData(editUserForm);
     formData = Object.fromEntries(formData);
     var arr = $(':checked').map(function (i, el) {
         return $(el).val();
     }).get();
     formData.strIdRoles = arr;
     console.log(formData);
+    editUserForm.reset();
     fetch(url, {
         method: 'PUT',
         headers: {
@@ -123,12 +124,12 @@ editUserForm.addEventListener('submit', function (event) {
             console.log('Request failed', error);
         });
 
-});
+};
 
 let addUserForm = document.getElementById('addForm');
-
- addUserForm.addEventListener('submit', function (event) {
-    let formData = new FormData(this);
+let addUserButton = document.getElementById('buttonNewUser');
+addUserButton.onclick = function () {
+    let formData = new FormData(addUserForm);
     formData = Object.fromEntries(formData);
     var arr = $(':checked').map(function (i, el) {
         return $(el).val();
@@ -136,6 +137,7 @@ let addUserForm = document.getElementById('addForm');
     console.log(arr);
     formData.strIdRoles = arr;
     console.log(formData);
+    addUserForm.reset();
     fetch(url, {
         method: 'POST',
         headers: {
@@ -148,7 +150,7 @@ let addUserForm = document.getElementById('addForm');
             console.log('Request failed', error);
         });
 
-});
+};
 
 
 async function deleteUser(idUser) {
